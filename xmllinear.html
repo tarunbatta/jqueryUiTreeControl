@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="Styles/smoothness/jquery-ui-1.10.3.custom.min.css" />
+    <script src="Scripts/jquery-2.0.1.min.js"></script>
+    <script src="Scripts/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="Scripts/jquery-battatree-1.0.0.js"></script>
+</head>
+<body>
+    <div id="treeview">
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+
+        var data_obj = "<root><node id='1' name='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' parentId='0' href='http://google.com'/><node id='2' name='Proin dignissim commodo elit, quis pretium metus volutpat at.' parentId='1' /><node id='3' name='Quisque tempor dui in magna ullamcorper ornare.' parentId='1' /><node id='4' name='Morbi malesuada lorem dignissim sapien molestie varius.' parentId='2' /><node id='5' name='Integer et justo ac nunc viverra elementum vitae at eros.' parentId='3' /><node id='6' name='In feugiat ante sit amet orci pulvinar sit amet vehicula enim ornare.' parentId='4' /><node id='7' name='Cras at orci turpis, sed sodales velit.' parentId='5' /><node id='8' name='Cras scelerisque urna vel mi condimentum ac feugiat libero iaculis.' parentId='7' /><node id='9' name='Ut pharetra sem non est facilisis iaculis.' parentId='7' /><node id='10' name='Praesent venenatis ante iaculis enim semper iaculis.' parentId='1' /></root>";
+
+        $("#treeview").battatree({
+            containerid: "treeview"
+            , dataset: data_obj
+            , datastructure: $treedatastructure.XmlLinear
+            , collapse_carat_class: "ui-icon-circle-plus"
+            , expand_carat_class: "ui-icon-circle-minus"
+            , item_carat_class: "ui-icon-clipboard"
+            , collapse_tree: false
+            , node_highlight: "ui-state-highlight"
+            , add_node_class: "ui-icon-plusthick"
+            , remove_node_class: "ui-icon-minusthick"
+            , show_node_add: true
+            , show_node_remove: true
+            , node_remove_message: "Are you sure?"
+        });
+    });
+</script>

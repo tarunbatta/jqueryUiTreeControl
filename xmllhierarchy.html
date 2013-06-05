@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="Styles/smoothness/jquery-ui-1.10.3.custom.min.css" />
+    <script src="Scripts/jquery-2.0.1.min.js"></script>
+    <script src="Scripts/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="Scripts/jquery-battatree-1.0.0.js"></script>
+</head>
+<body>
+    <div id="treeview">
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+
+        var data_obj = "";
+
+        $.ajax({
+            type: "GET"
+            , async: false
+            , url: "xmlhierarchy.xml"
+            , dataType: "xml"
+            , success: function (xml) {
+                data_obj = xml;
+            }
+        });
+
+        $("#treeview").battatree({
+            containerid: "treeview"
+            , dataset: data_obj
+            , datastructure: $treedatastructure.XmlHierarchy
+            , collapse_carat_class: "ui-icon-circle-plus"
+            , expand_carat_class: "ui-icon-circle-minus"
+            , item_carat_class: "ui-icon-clipboard"
+            , collapse_tree: false
+            , node_highlight: "ui-state-highlight"
+            , add_node_class: "ui-icon-plusthick"
+            , remove_node_class: "ui-icon-minusthick"
+            , show_node_add: true
+            , show_node_remove: true
+            , node_remove_message: "Are you sure?"
+        });
+    });
+</script>

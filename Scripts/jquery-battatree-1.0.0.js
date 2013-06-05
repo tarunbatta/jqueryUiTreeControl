@@ -1,8 +1,10 @@
 ﻿(function ($) {
 
     $treedatastructure = {
-        Linear: 1,
-        TreeObject: 2
+        JsonLinear: 1
+        , JsonHierarchy: 2
+        , XmlLinear: 3
+        , XmlHierarchy: 4
     }
 
     var $defaults = {
@@ -35,19 +37,52 @@
         function BuildTreeDataStructure() {
             switch ($settings.datastructure) {
                 case 1:
-                    ConvertLinearToTreeObject();
+                    ConvertJsonLinearToTreeObject();
                     break;
                 case 2:
-                    tree_datastructure = dataset;
+                    tree_datastructure = $settings.dataset[0].root;
+                    break;
+                case 3:
+                    ConvertLinearXmlToTreeObject();
+                    break;
+                case 4:
+                    ConvertHierarchyXmlToTreeObject();
                     break;
                 default:
+                    tree_datastructure = $settings.dataset[0].root;
                     break;
             }
         }
 
-        function ConvertLinearToTreeObject() {
-            $($settings.dataset).each(function (key, value) {
+        function ConvertJsonLinearToTreeObject() {
+            $($settings.dataset[0].root).each(function (key, value) {
                 var node = { id: this.id, name: this.name, parentId: this.parentId, href: this.href, childnodes: [] };
+
+                if (tree_datastructure.length == 0) {
+                    tree_datastructure.push(node);
+                }
+                else {
+                    AddNodeToTreeDataStructure(tree_datastructure, node);
+                }
+            });
+        }
+
+        function ConvertLinearXmlToTreeObject() {
+            $($settings.dataset).find("node").each(function (key, value) {
+                var node = { id: this.id, name: $(this).attr("name"), parentId: $(this).attr("parentId"), href: $(this).attr("href"), childnodes: [] };
+
+                if (tree_datastructure.length == 0) {
+                    tree_datastructure.push(node);
+                }
+                else {
+                    AddNodeToTreeDataStructure(tree_datastructure, node);
+                }
+            });
+        }
+
+        function ConvertHierarchyXmlToTreeObject() {
+            $($settings.dataset).find("node").each(function (key, value) {
+                var node = { id: $(this).attr("id"), name: $(this).attr("name"), parentId: $(this).parent().attr("id") == null ? 0 : $(this).parent().attr("id"), href: $(this).attr("href"), childnodes: [] };
 
                 if (tree_datastructure.length == 0) {
                     tree_datastructure.push(node);
@@ -100,7 +135,7 @@
                 var carat_css = $settings.collapse_carat_class;
                 var item_margin = 20;
                 displaytree += "<li nodeid='" + this.id + "'>";
-                if (this.childnodes.length > 0) {
+                if (this.childnodes != null && this.childnodes.length > 0) {
                     displaytree += "<span class='ui-icon ";
                     if ($settings.collapse_tree) {
                         displaytree += $settings.expand_carat_class;
@@ -130,7 +165,7 @@
                 }
                 displaytree += "</li>";
 
-                if (this.childnodes.length > 0) {
+                if (this.childnodes != null && this.childnodes.length > 0) {
                     AddNodeToDisplayTree(this.childnodes);
                 }
             });
