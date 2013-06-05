@@ -1,16 +1,32 @@
-﻿(function ($) {
+﻿/*
+ * jQuery UI Treeview Plugin Library
+ * http://tarunbatta.blogspot.com/
+ *
+ * Copyright (c) 2013 Tarun Batta
+ * Licensed under BTechCo licenses.
+ * https://github.com/btechco/jqueryui_treeview/wiki
+ *
+ */
 
-    $treedatastructure = {
-        JsonLinear: 1
-        , JsonHierarchy: 2
-        , XmlLinear: 3
-        , XmlHierarchy: 4
+(function ($) {
+
+    $treedatatype = {
+        Json: 1
+        , Xml: 2
+    }
+
+    $treedataformat = {
+        Linear: 1
+        , Hierarchy: 2
     }
 
     var $defaults = {
         containerid: null
+        , url: null
+        , async: false
         , dataset: null
-        , datastructure: $treedatastructure.TreeObject
+        , datatype: $treedatatype.Json
+        , dataformat: $treedataformat.Hierarchy
         , collapse_carat_class: "ui-icon-folder-collapsed"
         , expand_carat_class: "ui-icon-folder-open"
         , item_carat_class: "ui-icon-document"
@@ -25,7 +41,7 @@
 
     var $settings = $defaults;
 
-    $.fn.battatree = function (options) {
+    $.fn.btechcotree = function (options) {
         $settings = $.extend({}, $defaults, options);
 
         var tree_datastructure = [];
@@ -35,21 +51,56 @@
         BuildTree();
 
         function BuildTreeDataStructure() {
-            switch ($settings.datastructure) {
+            if ($settings.url != null && $settings.url.length > 0) {
+                var datatype = "";
+                switch ($settings.datatype) {
+                    case 1:
+                        datatype = "json";
+                        break;
+                    case 2:
+                        datatype = "xml";
+                        break;
+                }
+
+                console.log($settings.datatype);
+                console.log($settings.datatype.val());
+
+                $.ajax({
+                    type: "GET"
+                    , async: $settings.async
+                    , url: $settings.url
+                    , dataType: datatype
+                    , success: function (data) {
+                        $settings.dataset = data;
+                    }
+                    , error: function (xhr, ajaxOptions, thrownError) {
+                        console.log("Ajax Error");
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                });
+            }
+
+            switch ($settings.datatype) {
                 case 1:
-                    ConvertJsonLinearToTreeObject();
+                    switch ($settings.dataformat) {
+                        case 1:
+                            ConvertJsonLinearToTreeObject();
+                            break;
+                        case 2:
+                            tree_datastructure = $settings.dataset[0].root;
+                            break;
+                    }
                     break;
                 case 2:
-                    tree_datastructure = $settings.dataset[0].root;
-                    break;
-                case 3:
-                    ConvertLinearXmlToTreeObject();
-                    break;
-                case 4:
-                    ConvertHierarchyXmlToTreeObject();
-                    break;
-                default:
-                    tree_datastructure = $settings.dataset[0].root;
+                    switch ($settings.dataformat) {
+                        case 1:
+                            ConvertLinearXmlToTreeObject();
+                            break;
+                        case 2:
+                            ConvertHierarchyXmlToTreeObject();
+                            break;
+                    }
                     break;
             }
         }

@@ -1,0 +1,29 @@
+{
+    "name": "btechcotree",
+    "title": "jQuery UI Treeview",
+    "description": "jQuery plugin for jquery-ui compliant treeview.",
+    "keywords": [
+        "jquery-ui"
+		, "jQuery UI"
+		, "tree"
+		, "treeview"
+    ],
+    "version": "1.0.0",
+    "author": {
+        "name": "Tarun Batta",
+        "url": "http://tarunbatta.blogspot.com/"
+    },
+    "licenses": [
+        {
+            "type": "BTechCo",
+            "url": "https://github.com/btechco/jqueryui_treeview/wiki"
+        }
+    ],
+    "bugs": "https://github.com/btechco/jqueryui_treeview/wiki",
+    "homepage": "https://github.com/btechco/jqueryui_treeview",
+    "docs": "https://github.com/btechco/jqueryui_treeview/wiki",
+    "download": "https://github.com/btechco/jqueryui_treeview/wiki",
+    "dependencies": {
+        "jquery": ">=1.8"
+    }
+}

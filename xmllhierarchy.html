@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="Styles/smoothness/jquery-ui-1.10.3.custom.min.css" />
     <script src="Scripts/jquery-2.0.1.min.js"></script>
     <script src="Scripts/jquery-ui-1.10.3.custom.min.js"></script>
-    <script src="Scripts/jquery-battatree-1.0.0.js"></script>
+    <script src="Scripts/jquery.btechco.tree.js"></script>
 </head>
 <body>
     <div id="treeview">
@@ -14,23 +14,11 @@
 </html>
 <script>
     $(document).ready(function () {
-
-        var data_obj = "";
-
-        $.ajax({
-            type: "GET"
-            , async: false
-            , url: "xmlhierarchy.xml"
-            , dataType: "xml"
-            , success: function (xml) {
-                data_obj = xml;
-            }
-        });
-
-        $("#treeview").battatree({
+        $("#treeview").btechcotree({
             containerid: "treeview"
-            , dataset: data_obj
-            , datastructure: $treedatastructure.XmlHierarchy
+            , url: "data_hierarchy.xml"
+            , datatype: $treedatatype.Xml
+            , dataformat: $treedataformat.Hierarchy
             , collapse_carat_class: "ui-icon-circle-plus"
             , expand_carat_class: "ui-icon-circle-minus"
             , item_carat_class: "ui-icon-clipboard"

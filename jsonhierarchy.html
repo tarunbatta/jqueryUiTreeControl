@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="Styles/smoothness/jquery-ui-1.10.3.custom.min.css" />
     <script src="Scripts/jquery-2.0.1.min.js"></script>
     <script src="Scripts/jquery-ui-1.10.3.custom.min.js"></script>
-    <script src="Scripts/jquery-battatree-1.0.0.js"></script>
+    <script src="Scripts/jquery.btechco.tree.js"></script>
 </head>
 <body>
     <div id="treeview">
@@ -14,43 +14,11 @@
 </html>
 <script>
     $(document).ready(function () {
-
-        var data_obj = [{
-            root: [
-                {
-                    id: 1, name: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", href: "http://google.com", childnodes: [
-                        {
-                            id: 2, name: "Proin dignissim commodo elit, quis pretium metus volutpat at.", childnodes: [
-                                {
-                                    id: 4, name: "Morbi malesuada lorem dignissim sapien molestie varius.", childnodes: [
-                                        { id: 6, name: "In feugiat ante sit amet orci pulvinar sit amet vehicula enim ornare." }
-                                    ]
-                                }
-                            ]
-                        }
-                        , {
-                            id: 3, name: "Quisque tempor dui in magna ullamcorper ornare.", childnodes: [
-                                {
-                                    id: 5, name: "Integer et justo ac nunc viverra elementum vitae at eros.", childnodes: [
-                                        {
-                                            id: 7, name: "Cras at orci turpis, sed sodales velit.", childnodes: [
-                                                { id: 8, name: "Cras scelerisque urna vel mi condimentum ac feugiat libero iaculis." }
-                                                , { id: 9, name: "Ut pharetra sem non est facilisis iaculis." }]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                        , { id: 10, name: "Praesent venenatis ante iaculis enim semper iaculis.", childnodes: null }
-                    ]
-                }
-            ]
-        }];
-
-        $("#treeview").battatree({
+        $("#treeview").btechcotree({
             containerid: "treeview"
-            , dataset: data_obj
-            , datastructure: $treedatastructure.JsonHierarchy
+            , url: "data_hierarchy.json"
+            , datatype: $treedatatype.Json
+            , dataformat: $treedataformat.Hierarchy
             , collapse_carat_class: "ui-icon-circle-plus"
             , expand_carat_class: "ui-icon-circle-minus"
             , item_carat_class: "ui-icon-clipboard"
