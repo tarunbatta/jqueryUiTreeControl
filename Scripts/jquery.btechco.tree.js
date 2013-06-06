@@ -96,7 +96,7 @@
                         $settings.dataset = data;
                     }
                     , error: function (xhr, ajaxOptions, thrownError) {
-                        $settings.onprocessingerror(xhr, ajaxOptions, thrownError);                        
+                        $settings.onprocessingerror(xhr, ajaxOptions, thrownError);
                     }
                 });
             }
@@ -131,7 +131,7 @@
             $($settings.dataset[0].root).each(function (key, value) {
                 var node = { id: this.id, name: this.name, parentId: this.parentId, href: this.href, childnodes: [] };
 
-                if (tree_datastructure.length == 0) {
+                if (tree_datastructure.length == 0 || node.parentId == 0) {
                     tree_datastructure.push(node);
                 }
                 else {
@@ -144,7 +144,7 @@
             $($settings.dataset).find("node").each(function (key, value) {
                 var node = { id: this.id, name: $(this).attr("name"), parentId: $(this).attr("parentId"), href: $(this).attr("href"), childnodes: [] };
 
-                if (tree_datastructure.length == 0) {
+                if (tree_datastructure.length == 0 || node.parentId == 0) {
                     tree_datastructure.push(node);
                 }
                 else {
@@ -157,7 +157,7 @@
             $($settings.dataset).find("node").each(function (key, value) {
                 var node = { id: $(this).attr("id"), name: $(this).attr("name"), parentId: $(this).parent().attr("id") == null ? 0 : $(this).parent().attr("id"), href: $(this).attr("href"), childnodes: [] };
 
-                if (tree_datastructure.length == 0) {
+                if (tree_datastructure.length == 0 || node.parentId == 0) {
                     tree_datastructure.push(node);
                 }
                 else {

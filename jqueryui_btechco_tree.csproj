@@ -87,6 +87,7 @@
     <Content Include="Styles\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Styles\smoothness\jquery-ui-1.10.3.custom.css" />
     <Content Include="Styles\smoothness\jquery-ui-1.10.3.custom.min.css" />
+    <Content Include="test.html" />
     <Content Include="xmllhierarchy.html" />
     <Content Include="xmllinear.html" />
   </ItemGroup>

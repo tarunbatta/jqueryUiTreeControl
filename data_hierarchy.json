@@ -28,23 +28,7 @@
                         "childnodes": [
                             {
                                 "id": 5,
-                                "name": "Integer et justo ac nunc viverra elementum vitae at eros.",
-                                "childnodes": [
-                                    {
-                                        "id": 7,
-                                        "name": "Cras at orci turpis, sed sodales velit.",
-                                        "childnodes": [
-                                            {
-                                                "id": 8,
-                                                "name": "Cras scelerisque urna vel mi condimentum ac feugiat libero iaculis."
-                                            },
-                                            {
-                                                "id": 9,
-                                                "name": "Ut pharetra sem non est facilisis iaculis."
-                                            }
-                                        ]
-                                    }
-                                ]
+                                "name": "Integer et justo ac nunc viverra elementum vitae at eros."
                             }
                         ]
                     },
@@ -52,6 +36,20 @@
                         "id": 10,
                         "name": "Praesent venenatis ante iaculis enim semper iaculis.",
                         "childnodes": null
+                    }
+                ]
+            },
+			{
+                "id": 7,
+                "name": "Cras at orci turpis, sed sodales velit.",
+                "childnodes": [
+                    {
+                        "id": 8,
+                        "name": "Cras scelerisque urna vel mi condimentum ac feugiat libero iaculis."
+                    },
+                    {
+                        "id": 9,
+                        "name": "Ut pharetra sem non est facilisis iaculis."
                     }
                 ]
             }

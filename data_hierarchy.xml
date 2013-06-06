@@ -6,13 +6,12 @@
       </node>
     </node>
     <node id='3' name='Quisque tempor dui in magna ullamcorper ornare.'>
-      <node id='5' name='Integer et justo ac nunc viverra elementum vitae at eros.'>
-        <node id='7' name='Cras at orci turpis, sed sodales velit.'>
-          <node id='8' name='Cras scelerisque urna vel mi condimentum ac feugiat libero iaculis.'></node>
-          <node id='9' name='Ut pharetra sem non est facilisis iaculis.'></node>
-        </node>
-      </node>
+      <node id='5' name='Integer et justo ac nunc viverra elementum vitae at eros.'></node>
     </node>
     <node id='10' name='Praesent venenatis ante iaculis enim semper iaculis.'></node>
+  </node>
+  <node id='7' name='Cras at orci turpis, sed sodales velit.'>
+    <node id='8' name='Cras scelerisque urna vel mi condimentum ac feugiat libero iaculis.'></node>
+    <node id='9' name='Ut pharetra sem non est facilisis iaculis.'></node>
   </node>
 </root>
