@@ -10,6 +10,10 @@
 <body>
     <div id="treeview">
     </div>
+    <div>
+        <button id="btn1">Test-1</button>
+        <button id="btn2">Test-2</button>
+    </div>
 </body>
 </html>
 <script>
@@ -19,111 +23,131 @@
                 {
                     "id": 1,
                     "name": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    "parentId": 0,
+                    "parentid": 0,
                     "href": "http://google.com"
                 },
                 {
                     "id": 2,
                     "name": "Proin dignissim commodo elit, quis pretium metus volutpat at.",
-                    "parentId": 1
+                    "parentid": 1
                 },
                 {
                     "id": 3,
                     "name": "Quisque tempor dui in magna ullamcorper ornare.",
-                    "parentId": 1
+                    "parentid": 1
                 },
                 {
                     "id": 4,
                     "name": "Morbi malesuada lorem dignissim sapien molestie varius.",
-                    "parentId": 2
+                    "parentid": 2
                 },
                 {
                     "id": 5,
                     "name": "Integer et justo ac nunc viverra elementum vitae at eros.",
-                    "parentId": 3
+                    "parentid": 3
                 },
                 {
                     "id": 6,
                     "name": "In feugiat ante sit amet orci pulvinar sit amet vehicula enim ornare.",
-                    "parentId": 4
+                    "parentid": 4
                 },
                 {
                     "id": 7,
                     "name": "Cras at orci turpis, sed sodales velit.",
-                    "parentId": 5
+                    "parentid": 5
                 },
                 {
                     "id": 8,
                     "name": "Cras scelerisque urna vel mi condimentum ac feugiat libero iaculis.",
-                    "parentId": 7
+                    "parentid": 7
                 },
                 {
                     "id": 9,
                     "name": "Ut pharetra sem non est facilisis iaculis.",
-                    "parentId": 7
+                    "parentid": 7
                 },
                 {
                     "id": 10,
                     "name": "Praesent venenatis ante iaculis enim semper iaculis.",
-                    "parentId": 1
+                    "parentid": 1
                 }
             ]
         }];
 
-        $("#treeview").btechcotree({
-            containerid: "treeview"
-            , dataset: data_obj
-            , datatype: $treedatatype.Json
-            , dataformat: $treedataformat.Linear
-            , collapse_carat_class: "ui-icon-circle-plus"
-            , expand_carat_class: "ui-icon-circle-minus"
-            , item_carat_class: "ui-icon-clipboard"
-            , collapse_tree: false
-            , node_highlight: "ui-state-highlight"
-            , add_node_class: "ui-icon-plusthick"
-            , remove_node_class: "ui-icon-minusthick"
-            , show_node_add: true
-            , show_node_remove: true
-            , node_remove_message: "Are you sure?"
-            , onstart: function () {
-                console.log("onstart");
-            }
-            , onend: function () {
-                console.log("onend");
-            }
-            , onprocessingstart: function (node) {
-                console.log("onprocessingstart");
-            }
-            , onprocessingcomplete: function (node) {
-                console.log("onprocessingcomplete");
-            }
-            , onprocessingerror: function (xhr, ajaxOptions, thrownError) {
-                console.log("Ajax Error");
-                console.log(xhr);
-                console.log(ajaxOptions);
-                console.log(thrownError);
-            }
-            , onbeforedataconversion: function (node) {
-                console.log("onbeforedataconversion");
-            }
-            , onafterdataconversion: function (node) {
-                console.log("onafterdataconversion");
-            }
-            , onrenderstart: function (node) {
-                console.log("onrenderstart");
-            }
-            , onrendercomplete: function (node) {
-                console.log("onrendercomplete");
-            }
-            , onbeforenodeinsert: function (node) {
-                console.log("onbeforenodeinsert");
-            }
-            , onafternodeinsert: function (node) {
-                console.log("onafternodeinsert");
-            }
-            , onselectednode: function (node, sender) {
-                console.log("onselectednode");
-            }
+        $("#btn1").click(function () {
+            Clear();
+
+            $("#treeview").btechcotree({
+                containerid: "treeview"
+                , dataset: data_obj
+                , datatype: $treedatatype.Json
+                , dataformat: $treedataformat.Linear
+                , class_node_collapse: "ui-icon-circle-plus"
+                , class_node_expand: "ui-icon-circle-minus"
+                , class_node_item: "ui-icon-clipboard"
+                , collapse_tree: false
+                , class_node_highlight: "ui-state-highlight"
+                , class_node_add: "ui-icon-plusthick"
+                , class_node_remove: "ui-icon-minusthick"
+                , show_button_check: true
+                , show_button_add: false
+                , show_button_remove: true
+                , node_remove_message: "Are you sure?"
+                , onstart: function () {
+                    console.log("onstart");
+                }
+                , onend: function () {
+                    console.log("onend");
+                }
+                , onprocessingstart: function (node) {
+                    console.log("onprocessingstart");
+                }
+                , onprocessingcomplete: function (node) {
+                    console.log("onprocessingcomplete");
+                }
+                , onprocessingerror: function (xhr, ajaxOptions, thrownError) {
+                    console.log("Ajax Error");
+                    console.log(xhr);
+                    console.log(ajaxOptions);
+                    console.log(thrownError);
+                }
+                , onbeforedataconversion: function (node) {
+                    console.log("onbeforedataconversion");
+                }
+                , onafterdataconversion: function (node) {
+                    console.log("onafterdataconversion");
+                }
+                , onrenderstart: function (node) {
+                    console.log("onrenderstart");
+                }
+                , onrendercomplete: function (node) {
+                    console.log("onrendercomplete");
+                }
+                , onbeforenodeinsert: function (node) {
+                    console.log("onbeforenodeinsert");
+                }
+                , onafternodeinsert: function (node) {
+                    console.log("onafternodeinsert");
+                }
+                , onselectednode: function (node, sender) {
+                    console.log("onselectednode");
+                }
+            });
         });
+
+        $("#btn2").click(function () {
+            Clear();
+
+            $("#treeview").btechcotree({
+                containerid: "treeview"
+               , dataset: data_obj
+               , datatype: $treedatatype.Json
+               , dataformat: $treedataformat.Linear
+            });
+        });
+
+        function Clear() {
+            $("#treeview").empty();
+        }
     });
 </script>

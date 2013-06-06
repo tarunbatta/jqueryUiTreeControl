@@ -4,53 +4,53 @@
             {
                 "id": 1,
                 "name": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "parentId": 0,
+                "parentid": 0,
                 "href": "http://google.com"
             },
             {
                 "id": 2,
                 "name": "Proin dignissim commodo elit, quis pretium metus volutpat at.",
-                "parentId": 1
+                "parentid": 1
             },
             {
                 "id": 3,
                 "name": "Quisque tempor dui in magna ullamcorper ornare.",
-                "parentId": 1
+                "parentid": 1
             },
             {
                 "id": 4,
                 "name": "Morbi malesuada lorem dignissim sapien molestie varius.",
-                "parentId": 2
+                "parentid": 2
             },
             {
                 "id": 5,
                 "name": "Integer et justo ac nunc viverra elementum vitae at eros.",
-                "parentId": 3
+                "parentid": 3
             },
             {
                 "id": 6,
                 "name": "In feugiat ante sit amet orci pulvinar sit amet vehicula enim ornare.",
-                "parentId": 4
+                "parentid": 4
             },
             {
                 "id": 7,
                 "name": "Cras at orci turpis, sed sodales velit.",
-                "parentId": 0
+                "parentid": 0
             },
             {
                 "id": 8,
                 "name": "Cras scelerisque urna vel mi condimentum ac feugiat libero iaculis.",
-                "parentId": 7
+                "parentid": 7
             },
             {
                 "id": 9,
                 "name": "Ut pharetra sem non est facilisis iaculis.",
-                "parentId": 7
+                "parentid": 7
             },
             {
                 "id": 10,
                 "name": "Praesent venenatis ante iaculis enim semper iaculis.",
-                "parentId": 1
+                "parentid": 1
             }
         ]
     }
