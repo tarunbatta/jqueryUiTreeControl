@@ -29,6 +29,18 @@
             , show_node_add: true
             , show_node_remove: true
             , node_remove_message: "Are you sure?"
+            , onstart: function () {
+                console.log("Start");
+            }
+            , onprocessingerror: function (xhr, ajaxOptions, thrownError) {
+                console.log("Ajax Error");
+                console.log(xhr);
+                console.log(ajaxOptions);
+                console.log(thrownError);
+            }
+            , onend: function () {
+                console.log("End");
+            }
         });
     });
 </script>

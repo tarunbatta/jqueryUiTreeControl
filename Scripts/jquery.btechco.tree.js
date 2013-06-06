@@ -37,6 +37,15 @@
         , show_node_add: false
         , show_node_remove: false
         , node_remove_message: "Are you sure you want to remove this node?"
+        , onstart: function () { }
+        , onend: function () { }
+        , onprocessingstart: function () { }
+        , onprocessingcomplete: function () { }
+        , onprocessingerror: function (xhr, ajaxOptions, thrownError) { }
+        , beforedataconversion: function () { }
+        , afterdataconversion: function () { }
+        , onrenderstart: function () { }
+        , onrendercomplete: function () { }
     };
 
     var $settings = $defaults;
@@ -47,8 +56,21 @@
         var tree_datastructure = [];
         var displaytree = "";
 
-        BuildTreeDataStructure();
-        BuildTree();
+        Initialize();
+
+        function Initialize() {
+            $settings.onstart();
+
+            $settings.onprocessingstart();
+            BuildTreeDataStructure();
+            $settings.onprocessingcomplete();
+
+            $settings.onrenderstart();
+            BuildTree();
+            $settings.onrendercomplete();
+
+            $settings.onend();
+        }
 
         function BuildTreeDataStructure() {
             if ($settings.url != null && $settings.url.length > 0) {
@@ -62,9 +84,6 @@
                         break;
                 }
 
-                console.log($settings.datatype);
-                console.log($settings.datatype.val());
-
                 $.ajax({
                     type: "GET"
                     , async: $settings.async
@@ -74,13 +93,12 @@
                         $settings.dataset = data;
                     }
                     , error: function (xhr, ajaxOptions, thrownError) {
-                        console.log("Ajax Error");
-                        console.log(xhr.status);
-                        console.log(thrownError);
+                        $settings.onprocessingerror(xhr, ajaxOptions, thrownError);                        
                     }
                 });
             }
 
+            $settings.beforedataconversion();
             switch ($settings.datatype) {
                 case 1:
                     switch ($settings.dataformat) {
@@ -103,6 +121,7 @@
                     }
                     break;
             }
+            $settings.afterdataconversion();
         }
 
         function ConvertJsonLinearToTreeObject() {
@@ -238,9 +257,6 @@
         });
 
         $("li").delegate("span[data-action='remove']", "click", function () {
-
-            console.log(tree_datastructure);
-
             HighlightNode(this, true);
             var confirm_remove = confirm($settings.node_remove_message);
 
@@ -251,8 +267,6 @@
             else {
                 HighlightNode(this, false);
             }
-
-            console.log(tree_datastructure);
         });
 
         function CollapseTree(selectednode) {
