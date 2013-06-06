@@ -27,15 +27,16 @@
         , dataset: null
         , datatype: $treedatatype.Json
         , dataformat: $treedataformat.Hierarchy
-        , collapse_carat_class: "ui-icon-folder-collapsed"
-        , expand_carat_class: "ui-icon-folder-open"
-        , item_carat_class: "ui-icon-document"
+        , class_node_collapse: "ui-icon-folder-collapsed"
+        , class_node_expand: "ui-icon-folder-open"
+        , class_node_item: "ui-icon-document"
         , collapse_tree: false
-        , node_highlight: "ui-state-highlight"
-        , add_node_class: "ui-icon-plusthick"
-        , remove_node_class: "ui-icon-minusthick"
-        , show_node_add: false
-        , show_node_remove: false
+        , class_node_highlight: "ui-state-highlight"
+        , class_node_add: "ui-icon-plusthick"
+        , class_node_remove: "ui-icon-minusthick"
+        , show_button_check: false
+        , show_button_add: false
+        , show_button_remove: false
         , node_remove_message: "Are you sure you want to remove this node?"
         , onstart: function () { }
         , onend: function () { }
@@ -129,9 +130,20 @@
 
         function ConvertJsonLinearToTreeObject() {
             $($settings.dataset[0].root).each(function (key, value) {
-                var node = { id: this.id, name: this.name, parentId: this.parentId, href: this.href, childnodes: [] };
+                var node = {
+                    id: this.id
+                    , name: this.name
+                    , parentid: this.parentid
+                    , href: this.href
+                    , target: this.target
+                    , buttoncheck: this.buttoncheck
+                    , buttonadd: this.buttonadd
+                    , buttonremove: this.buttonremove
+                    , classnodeicon: this.classnodeicon
+                    , childnodes: []
+                };
 
-                if (tree_datastructure.length == 0 || node.parentId == 0) {
+                if (tree_datastructure.length == 0 || node.parentid == 0) {
                     tree_datastructure.push(node);
                 }
                 else {
@@ -142,9 +154,20 @@
 
         function ConvertLinearXmlToTreeObject() {
             $($settings.dataset).find("node").each(function (key, value) {
-                var node = { id: this.id, name: $(this).attr("name"), parentId: $(this).attr("parentId"), href: $(this).attr("href"), childnodes: [] };
+                var node = {
+                    id: $(this).attr("id")
+                    , name: $(this).attr("name")
+                    , parentid: $(this).attr("parentid")
+                    , href: $(this).attr("href")
+                    , target: $(this).attr("target")
+                    , buttoncheck: $(this).attr("buttoncheck") == null ? false : $(this).attr("buttoncheck")
+                    , buttonadd: $(this).attr("buttonadd") ? false : $(this).attr("buttonadd")
+                    , buttonremove: $(this).attr("buttonremove") ? false : $(this).attr("buttonremove")
+                    , classnodeicon: $(this).attr("classnodeicon")
+                    , childnodes: []
+                };
 
-                if (tree_datastructure.length == 0 || node.parentId == 0) {
+                if (tree_datastructure.length == 0 || node.parentid == 0) {
                     tree_datastructure.push(node);
                 }
                 else {
@@ -155,9 +178,20 @@
 
         function ConvertHierarchyXmlToTreeObject() {
             $($settings.dataset).find("node").each(function (key, value) {
-                var node = { id: $(this).attr("id"), name: $(this).attr("name"), parentId: $(this).parent().attr("id") == null ? 0 : $(this).parent().attr("id"), href: $(this).attr("href"), childnodes: [] };
+                var node = {
+                    id: $(this).attr("id")
+                    , name: $(this).attr("name")
+                    , parentid: $(this).parent().attr("id") == null ? 0 : $(this).parent().attr("id")
+                    , href: $(this).attr("href")
+                    , target: $(this).attr("target")
+                    , buttoncheck: $(this).attr("buttoncheck") == null ? false : $(this).attr("buttoncheck")
+                    , buttonadd: $(this).attr("buttonadd") ? false : $(this).attr("buttonadd")
+                    , buttonremove: $(this).attr("buttonremove") ? false : $(this).attr("buttonremove")
+                    , classnodeicon: $(this).attr("classnodeicon")
+                    , childnodes: []
+                };
 
-                if (tree_datastructure.length == 0 || node.parentId == 0) {
+                if (tree_datastructure.length == 0 || node.parentid == 0) {
                     tree_datastructure.push(node);
                 }
                 else {
@@ -168,7 +202,7 @@
 
         function AddNodeToTreeDataStructure(nodes, childnode) {
             for (var i = 0; i < nodes.length; i++) {
-                if (nodes[i].id == childnode.parentId) {
+                if (nodes[i].id == childnode.parentid) {
                     if (nodes[i].childnodes.length == 0) {
                         nodes[i].childnodes = [];
                     }
@@ -186,13 +220,13 @@
             AddNodeToDisplayTree(tree_datastructure);
             $("#" + $settings.containerid).append(displaytree);
 
-            var root_node = $("#" + $settings.containerid + "> ul > li > span:nth-child(1)");
-            ToggleCaratIcon(root_node);
-            CollapseTree(root_node);
+            var root_nodes = $("#" + $settings.containerid + "> ul > li > span:nth-child(1)");
+            ToggleCaratIcon(root_nodes);
+            CollapseTree(root_nodes);
 
             if ($settings.collapse_tree) {
-                ToggleCaratIcon(root_node);
-                CollapseTree(root_node);
+                ToggleCaratIcon(root_nodes);
+                CollapseTree(root_nodes);
             }
         }
 
@@ -205,35 +239,49 @@
             }
 
             $(nodes).each(function (key, value) {
-                var carat_css = $settings.collapse_carat_class;
+                var carat_css = $settings.class_node_collapse;
                 var item_margin = 20;
 
                 $settings.onbeforenodeinsert(value);
 
                 displaytree += "<li nodeid='" + this.id + "'>";
-                if (this.childnodes != null && this.childnodes.length > 0) {
-                    displaytree += "<span class='ui-icon ";
-                    if ($settings.collapse_tree) {
-                        displaytree += $settings.expand_carat_class;
-                    }
-                    else {
-                        displaytree += $settings.collapse_carat_class;
-                    }
-                    displaytree += "' data-action='nav_items' style='position:absolute; margin-top:1px;'></span>";
+                displaytree += "<span class='ui-icon ";
+
+                if (this.classnodeicon != null && this.classnodeicon.length > 0) {
+                    displaytree += this.classnodeicon;
                 }
                 else {
-                    displaytree += "<span class='ui-icon " + $settings.item_carat_class + "' data-action='nav_item' style='position:absolute; margin-top:1px;'></span>";
+                    if (this.childnodes != null && this.childnodes.length > 0) {
+                        if ($settings.collapse_tree) {
+                            displaytree += $settings.class_node_expand;
+                        }
+                        else {
+                            displaytree += $settings.class_node_collapse;
+                        }
+                    }
+                    else {
+                        displaytree += $settings.class_node_item;
+                    }
                 }
-                if ($settings.show_node_add) {
+                displaytree += "' data-action='nav_items' style='position:absolute; margin-top:1px;'></span>";
+
+                if (this.buttoncheck || (this.buttoncheck == null && $settings.show_button_check)) {
+                    displaytree += "<input type='checkbox' style='position:absolute; margin-top:1px;margin-left:" + item_margin + "px;'></input>";
                     item_margin += 20;
-                    displaytree += "<span class='ui-icon " + $settings.add_node_class + "' data-action='add' style='position:absolute;  margin-top:1px;margin-left:20px;'></span>";
                 }
-                if ($settings.show_node_remove) {
+
+                if (this.buttonadd || (this.buttonadd == null && $settings.show_button_add)) {
+                    displaytree += "<span class='ui-icon " + $settings.class_node_add + "' data-action='add' style='position:absolute; margin-top:1px;margin-left:" + item_margin + "px;'></span>";
                     item_margin += 20;
-                    displaytree += "<span class='ui-icon " + $settings.remove_node_class + "' data-action='remove' style='position:absolute; margin-top:1px;margin-left:40px;'></span>";
                 }
+
+                if (this.buttonremove || (this.buttonremove == null && $settings.show_button_remove)) {
+                    displaytree += "<span class='ui-icon " + $settings.class_node_remove + "' data-action='remove' style='position:absolute; margin-top:1px;margin-left:" + item_margin + "px;'></span>";
+                    item_margin += 20;
+                }
+
                 if (this.href) {
-                    displaytree += "<a href='" + this.href + "'>";
+                    displaytree += "<a href='" + this.href + "' target='" + this.target + "'>";
                 }
                 displaytree += "<span style='margin-left:" + item_margin + "px;' data-action='text'>" + this.name + "</span>";
                 if (this.href) {
@@ -261,6 +309,10 @@
             HighlightNode(this, true);
         });
 
+        $("li").delegate("input[type='checkbox']", "click", function () {
+            SelectChildCheckBox(this, $(this).is(":checked"));
+        });
+
         $("li").delegate("span[data-action='add']", "click", function () {
             HighlightNode(this, true);
         });
@@ -283,22 +335,33 @@
         }
 
         function ToggleCaratIcon(selectednode) {
-            if ($(selectednode).hasClass($settings.expand_carat_class)) {
-                $(selectednode).removeClass($settings.expand_carat_class);
-                $(selectednode).addClass($settings.collapse_carat_class);
-            }
-            else if ($(selectednode).hasClass($settings.collapse_carat_class)) {
-                $(selectednode).removeClass($settings.collapse_carat_class);
-                $(selectednode).addClass($settings.expand_carat_class);
-            }
+            $(selectednode).each(function () {
+                if ($(this).hasClass($settings.class_node_expand)) {
+                    $(this).removeClass($settings.class_node_expand);
+                    $(this).addClass($settings.class_node_collapse);
+                }
+                else if ($(this).hasClass($settings.class_node_collapse)) {
+                    $(this).removeClass($settings.class_node_collapse);
+                    $(this).addClass($settings.class_node_expand);
+                }
+                else {
+                    $.noop();
+                }
+            });
         }
 
         function HighlightNode(selectednode, flag) {
-            $("#" + $settings.containerid + " ul li span[data-action='text']").removeClass($settings.node_highlight);
+            $("#" + $settings.containerid + " ul li span[data-action='text']").removeClass($settings.class_node_highlight);
 
             if (flag) {
-                $(selectednode).parent().find("span[data-action='text']").addClass($settings.node_highlight);
+                $(selectednode).parent().find("span[data-action='text']").addClass($settings.class_node_highlight);
             }
+        }
+
+        function SelectChildCheckBox(selectednode, flag) {           
+            $(selectednode).parent("li").next("ul").find("input[type='checkbox']").each(function () {
+                $(this).prop('checked', flag);
+            });
         }
 
         function RemoveNode(nodes, nodeid) {
