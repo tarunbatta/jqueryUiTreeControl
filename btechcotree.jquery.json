@@ -16,13 +16,13 @@
     "licenses": [
         {
             "type": "BTechCo",
-            "url": "https://github.com/btechco/jqueryui_treeview/wiki"
+            "url": "https://github.com/btechco/jqueryui_btechco_tree/blob/master/LICENSE.txt"
         }
     ],
-    "bugs": "https://github.com/btechco/jqueryui_treeview/wiki",
-    "homepage": "https://github.com/btechco/jqueryui_treeview",
-    "docs": "https://github.com/btechco/jqueryui_treeview/wiki",
-    "download": "https://github.com/btechco/jqueryui_treeview/wiki",
+    "bugs": "https://github.com/btechco/jqueryui_btechco_tree/wiki/Bugs",
+    "homepage": "https://github.com/btechco/jqueryui_btechco_tree/wiki",
+    "docs": "https://github.com/btechco/jqueryui_btechco_tree/wiki/Documentation",
+    "download": "https://github.com/btechco/jqueryui_btechco_tree",
     "dependencies": {
         "jquery": ">=1.8"
     }

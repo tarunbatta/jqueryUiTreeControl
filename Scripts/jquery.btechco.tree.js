@@ -42,10 +42,13 @@
         , onprocessingstart: function () { }
         , onprocessingcomplete: function () { }
         , onprocessingerror: function (xhr, ajaxOptions, thrownError) { }
-        , beforedataconversion: function () { }
-        , afterdataconversion: function () { }
+        , onbeforedataconversion: function () { }
+        , onafterdataconversion: function () { }
         , onrenderstart: function () { }
         , onrendercomplete: function () { }
+        , onbeforenodeinsert: function (node) { }
+        , onafternodeinsert: function (node) { }
+        , onselectednode: function (node, sender) { }
     };
 
     var $settings = $defaults;
@@ -98,7 +101,7 @@
                 });
             }
 
-            $settings.beforedataconversion();
+            $settings.onbeforedataconversion();
             switch ($settings.datatype) {
                 case 1:
                     switch ($settings.dataformat) {
@@ -121,7 +124,7 @@
                     }
                     break;
             }
-            $settings.afterdataconversion();
+            $settings.onafterdataconversion();
         }
 
         function ConvertJsonLinearToTreeObject() {
@@ -204,6 +207,9 @@
             $(nodes).each(function (key, value) {
                 var carat_css = $settings.collapse_carat_class;
                 var item_margin = 20;
+
+                $settings.onbeforenodeinsert(value);
+
                 displaytree += "<li nodeid='" + this.id + "'>";
                 if (this.childnodes != null && this.childnodes.length > 0) {
                     displaytree += "<span class='ui-icon ";
@@ -235,6 +241,8 @@
                 }
                 displaytree += "</li>";
 
+                $settings.onafternodeinsert(value);
+
                 if (this.childnodes != null && this.childnodes.length > 0) {
                     AddNodeToDisplayTree(this.childnodes);
                 }
@@ -248,7 +256,8 @@
             CollapseTree(this);
         });
 
-        $("li").delegate("span[data-action='text']", "click", function () {
+        $("li").delegate("span[data-action='text']", "click", function (e) {
+            $settings.onselectednode($(this).parent().attr("nodeid"), e);
             HighlightNode(this, true);
         });
 
