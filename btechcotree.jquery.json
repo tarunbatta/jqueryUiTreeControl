@@ -1,10 +1,9 @@
 {
     "name": "btechcotree",
-    "title": "jQuery UI Treeview",
+    "title": "jQuery-ui Treeview",
     "description": "jQuery plugin for jquery-ui compliant treeview.",
     "keywords": [
         "jquery-ui"
-		, "jQuery UI"
 		, "tree"
 		, "treeview"
     ],
