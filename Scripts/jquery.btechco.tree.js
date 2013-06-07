@@ -355,8 +355,6 @@
             $settings.onafterremovenode();
         });
 
-
-
         function HighlightNode(selectednode, flag) {
             $("#" + $settings.containerid + " ul li span[data-action='text']").removeClass($settings.class_node_highlight);
 
