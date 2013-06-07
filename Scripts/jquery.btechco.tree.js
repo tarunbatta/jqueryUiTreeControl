@@ -230,13 +230,13 @@
             AddNodeToDisplayTree(tree_datastructure);
             $("#" + $settings.containerid).append(displaytree);
 
-            var root_nodes = $("#" + $settings.containerid + "> ul > li > span:nth-child(1)");
-            ToggleCaratIcon(root_nodes);
-            CollapseTree(root_nodes);
+            var root_nodes = $.fn.btechcotree.GetRootNodes();
+            $.fn.btechcotree.ToggleCaratIcon(root_nodes);
+            $.fn.btechcotree.ToggleTree(root_nodes);
 
             if ($settings.collapse_tree) {
-                ToggleCaratIcon(root_nodes);
-                CollapseTree(root_nodes);
+                $.fn.btechcotree.ToggleCaratIcon(root_nodes);
+                $.fn.btechcotree.ToggleTree(root_nodes);
             }
         }
 
@@ -320,8 +320,8 @@
         }
 
         $("li span[data-action='nav_items']").bind("click", function () {
-            ToggleCaratIcon(this);
-            CollapseTree(this);
+            $.fn.btechcotree.ToggleCaratIcon(this);
+            $.fn.btechcotree.ToggleTree(this);
         });
 
         $("li span[data-action='text']").bind("click", function (e) {
@@ -355,25 +355,7 @@
             $settings.onafterremovenode();
         });
 
-        function CollapseTree(selectednode) {
-            $(selectednode).parent().next("ul").toggle();
-        }
 
-        function ToggleCaratIcon(selectednode) {
-            $(selectednode).each(function () {
-                if ($(this).hasClass($settings.class_node_expand)) {
-                    $(this).removeClass($settings.class_node_expand);
-                    $(this).addClass($settings.class_node_collapse);
-                }
-                else if ($(this).hasClass($settings.class_node_collapse)) {
-                    $(this).removeClass($settings.class_node_collapse);
-                    $(this).addClass($settings.class_node_expand);
-                }
-                else {
-                    $.noop();
-                }
-            });
-        }
 
         function HighlightNode(selectednode, flag) {
             $("#" + $settings.containerid + " ul li span[data-action='text']").removeClass($settings.class_node_highlight);
@@ -389,4 +371,60 @@
             });
         }
     };
+
+    $.fn.btechcotree.GetRootNodes = function () {
+        return $("#" + $settings.containerid + "> ul > li > span:nth-child(1)");
+    };
+
+    $.fn.btechcotree.ToggleTree = function (selectednode) {
+        $(selectednode).parent().next("ul").toggle();
+    };
+
+    $.fn.btechcotree.ToggleCaratIcon = function (selectednode) {
+        $(selectednode).each(function () {
+            if ($(this).hasClass($settings.class_node_expand)) {
+                $(this).removeClass($settings.class_node_expand);
+                $(this).addClass($settings.class_node_collapse);
+            }
+            else if ($(this).hasClass($settings.class_node_collapse)) {
+                $(this).removeClass($settings.class_node_collapse);
+                $(this).addClass($settings.class_node_expand);
+            }
+            else {
+                $.noop();
+            }
+        });
+    };
+
+    $.fn.btechcotree.ExpandCollapseTree = function (selectednode, flag) {
+        if (flag) {
+            if (!$(selectednode).parent().next("ul").is(":visible")) {
+                $(selectednode).parent().next("ul").show();
+                $.fn.btechcotree.ToggleCaratIcon(selectednode);
+            }
+        }
+        else {
+            if ($(selectednode).parent().next("ul").is(":visible")) {
+                $(selectednode).parent().next("ul").hide(); 
+                $.fn.btechcotree.ToggleCaratIcon(selectednode);
+            }            
+        }
+    };
+
+    $.fn.btechcotree.Expand = function () {
+        var root_nodes = $.fn.btechcotree.GetRootNodes();
+        $.fn.btechcotree.ExpandCollapseTree(root_nodes, true);
+    };
+
+    $.fn.btechcotree.Collapse = function () {
+        var root_nodes = $.fn.btechcotree.GetRootNodes();
+        $.fn.btechcotree.ExpandCollapseTree(root_nodes, false);
+    };
+
+    $.fn.btechcotree.Toggle = function () {
+        var root_nodes = $.fn.btechcotree.GetRootNodes();
+        $.fn.btechcotree.ToggleCaratIcon(root_nodes);
+        $.fn.btechcotree.ToggleTree(root_nodes);
+    };
+
 })(jQuery);

@@ -13,6 +13,9 @@
     <div>
         <button id="btn1">Test-1</button>
         <button id="btn2">Test-2</button>
+        <button id="btn3">Expand-All</button>
+        <button id="btn4">Collapse-All</button>
+        <button id="btn5">Toggle</button>
     </div>
 </body>
 </html>
@@ -170,6 +173,19 @@
                , datatype: $treedatatype.Json
                , dataformat: $treedataformat.Linear
             });
+        });
+
+        $("#btn3").click(function () {
+            $("#treeview").btechcotree.Expand();
+        });
+
+
+        $("#btn4").click(function () {
+            $("#treeview").btechcotree.Collapse();
+        });
+
+        $("#btn5").click(function () {
+            $("#treeview").btechcotree.Toggle();
         });
 
         function Clear() {
