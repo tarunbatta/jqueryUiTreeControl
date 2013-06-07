@@ -16,5 +16,4 @@ We all know that jQuery UI being a popular rendering framework supports only bas
 1. [Home] (https://github.com/btechco/jqueryui_btechco_tree/wiki)
 2. [Code] (https://github.com/btechco/jqueryui_btechco_tree)
 2. [Documentation] (https://github.com/btechco/jqueryui_btechco_tree/wiki/Documentation)
-2. [Bugs] (https://github.com/btechco/jqueryui_btechco_tree/wiki/Bugs)
-3. [Feature Request] (https://github.com/btechco/jqueryui_btechco_tree/wiki/Feature-Request)
+2. [Bugs / Feature Request] (https://github.com/btechco/jqueryui_btechco_tree/issues)
