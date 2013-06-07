@@ -139,6 +139,7 @@
                     , buttoncheck: this.buttoncheck
                     , buttonadd: this.buttonadd
                     , buttonremove: this.buttonremove
+                    , isdisabled: this.isdisabled
                     , classnodeicon: this.classnodeicon
                     , childnodes: []
                 };
@@ -161,11 +162,14 @@
                     , href: $(this).attr("href")
                     , target: $(this).attr("target")
                     , buttoncheck: $(this).attr("buttoncheck") == null ? false : $(this).attr("buttoncheck")
-                    , buttonadd: $(this).attr("buttonadd") ? false : $(this).attr("buttonadd")
-                    , buttonremove: $(this).attr("buttonremove") ? false : $(this).attr("buttonremove")
+                    , buttonadd: $(this).attr("buttonadd") == null ? false : $(this).attr("buttonadd")
+                    , buttonremove: $(this).attr("buttonremove") == null ? false : $(this).attr("buttonremove")
+                    , isdisabled: $(this).attr("isdisabled") == null ? false : $(this).attr("isdisabled")
                     , classnodeicon: $(this).attr("classnodeicon")
                     , childnodes: []
                 };
+
+                console.log(node);
 
                 if (tree_datastructure.length == 0 || node.parentid == 0) {
                     tree_datastructure.push(node);
@@ -185,8 +189,9 @@
                     , href: $(this).attr("href")
                     , target: $(this).attr("target")
                     , buttoncheck: $(this).attr("buttoncheck") == null ? false : $(this).attr("buttoncheck")
-                    , buttonadd: $(this).attr("buttonadd") ? false : $(this).attr("buttonadd")
-                    , buttonremove: $(this).attr("buttonremove") ? false : $(this).attr("buttonremove")
+                    , buttonadd: $(this).attr("buttonadd") == null ? false : $(this).attr("buttonadd")
+                    , buttonremove: $(this).attr("buttonremove") == null ? false : $(this).attr("buttonremove")
+                    , isdisabled: $(this).attr("isdisabled") == null ? false : $(this).attr("isdisabled")
                     , classnodeicon: $(this).attr("classnodeicon")
                     , childnodes: []
                 };
@@ -266,7 +271,11 @@
                 displaytree += "' data-action='nav_items' style='position:absolute; margin-top:1px;'></span>";
 
                 if (this.buttoncheck || (this.buttoncheck == null && $settings.show_button_check)) {
-                    displaytree += "<input type='checkbox' style='position:absolute; margin-top:1px;margin-left:" + item_margin + "px;'></input>";
+                    displaytree += "<input type='checkbox' style='position:absolute; margin-top:1px;margin-left:" + item_margin + "px;'";
+                    if (this.isdisabled) {
+                        displaytree += " disabled='true'";
+                    }
+                    displaytree += "></input>";
                     item_margin += 20;
                 }
 
