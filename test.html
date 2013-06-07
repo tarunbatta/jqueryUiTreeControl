@@ -90,7 +90,7 @@
                 , class_node_add: "ui-icon-plusthick"
                 , class_node_remove: "ui-icon-minusthick"
                 , show_button_check: true
-                , show_button_add: false
+                , show_button_add: true
                 , show_button_remove: true
                 , node_remove_message: "Are you sure?"
                 , onstart: function () {
@@ -131,6 +131,32 @@
                 }
                 , onselectednode: function (node, sender) {
                     console.log("onselectednode");
+                }
+                , onbeforeaddnode: function (node, sender) {
+                    console.log("onbeforeaddnode");
+                }
+                , onafteraddnode: function (node, sender) {
+                    console.log("onafteraddnode");
+                }
+                , onbeforeremovenode: function (node, sender) {
+                    console.log("onbeforeremovenode");
+                }
+                , onafterremovenode: function (node, sender) {
+                    console.log("onafterremovenode");
+                }
+                , onaddnode: function (node, sender) {
+                    console.log(node);
+                    console.log(sender);
+                }
+                , onremovenode: function (id, node, sender) {
+                    console.log(id);
+                    console.log(node);
+                    console.log(sender);
+                }
+                , onnodecheckselected: function (id, node, sender) {
+                    console.log(id);
+                    console.log(node);
+                    console.log(sender);
                 }
             });
         });

@@ -50,6 +50,13 @@
         , onbeforenodeinsert: function (node) { }
         , onafternodeinsert: function (node) { }
         , onselectednode: function (node, sender) { }
+        , onbeforeaddnode: function () { }
+        , onafteraddnode: function () { }
+        , onbeforeremovenode: function () { }
+        , onafterremovenode: function () { }
+        , onaddnode: function (node, sender) { }
+        , onremovenode: function (id, node, sender) { }
+        , onnodecheckselected: function (id, node, sender) { }
     };
 
     var $settings = $defaults;
@@ -169,8 +176,6 @@
                     , childnodes: []
                 };
 
-                console.log(node);
-
                 if (tree_datastructure.length == 0 || node.parentid == 0) {
                     tree_datastructure.push(node);
                 }
@@ -245,59 +250,9 @@
 
             $(nodes).each(function (key, value) {
                 var carat_css = $settings.class_node_collapse;
-                var item_margin = 20;
 
                 $settings.onbeforenodeinsert(value);
-
-                displaytree += "<li nodeid='" + this.id + "'>";
-                displaytree += "<span class='ui-icon ";
-
-                if (this.classnodeicon != null && this.classnodeicon.length > 0) {
-                    displaytree += this.classnodeicon;
-                }
-                else {
-                    if (this.childnodes != null && this.childnodes.length > 0) {
-                        if ($settings.collapse_tree) {
-                            displaytree += $settings.class_node_expand;
-                        }
-                        else {
-                            displaytree += $settings.class_node_collapse;
-                        }
-                    }
-                    else {
-                        displaytree += $settings.class_node_item;
-                    }
-                }
-                displaytree += "' data-action='nav_items' style='position:absolute; margin-top:1px;'></span>";
-
-                if (this.buttoncheck || (this.buttoncheck == null && $settings.show_button_check)) {
-                    displaytree += "<input type='checkbox' style='position:absolute; margin-top:1px;margin-left:" + item_margin + "px;'";
-                    if (this.isdisabled) {
-                        displaytree += " disabled='true'";
-                    }
-                    displaytree += "></input>";
-                    item_margin += 20;
-                }
-
-                if (this.buttonadd || (this.buttonadd == null && $settings.show_button_add)) {
-                    displaytree += "<span class='ui-icon " + $settings.class_node_add + "' data-action='add' style='position:absolute; margin-top:1px;margin-left:" + item_margin + "px;'></span>";
-                    item_margin += 20;
-                }
-
-                if (this.buttonremove || (this.buttonremove == null && $settings.show_button_remove)) {
-                    displaytree += "<span class='ui-icon " + $settings.class_node_remove + "' data-action='remove' style='position:absolute; margin-top:1px;margin-left:" + item_margin + "px;'></span>";
-                    item_margin += 20;
-                }
-
-                if (this.href) {
-                    displaytree += "<a href='" + this.href + "' target='" + this.target + "'>";
-                }
-                displaytree += "<span style='margin-left:" + item_margin + "px;' data-action='text'>" + this.name + "</span>";
-                if (this.href) {
-                    displaytree += "</a>";
-                }
-                displaytree += "</li>";
-
+                displaytree += CreateNode(this);
                 $settings.onafternodeinsert(value);
 
                 if (this.childnodes != null && this.childnodes.length > 0) {
@@ -308,35 +263,96 @@
             displaytree += "</ul>";
         }
 
-        $("li").delegate("span[data-action='nav_items']", "click", function () {
+        function CreateNode(node) {
+            var displaytree = "";
+            var item_margin = 20;
+
+            displaytree += "<li nodeid='" + node.id + "'>";
+            displaytree += "<span class='ui-icon ";
+
+            if (node.classnodeicon != null && node.classnodeicon.length > 0) {
+                displaytree += node.classnodeicon;
+            }
+            else {
+                if (node.childnodes != null && node.childnodes.length > 0) {
+                    if ($settings.collapse_tree) {
+                        displaytree += $settings.class_node_expand;
+                    }
+                    else {
+                        displaytree += $settings.class_node_collapse;
+                    }
+                }
+                else {
+                    displaytree += $settings.class_node_item;
+                }
+            }
+            displaytree += "' data-action='nav_items' style='position:absolute; margin-top:1px;'></span>";
+
+            if (node.buttoncheck || (node.buttoncheck == null && $settings.show_button_check)) {
+                displaytree += "<input type='checkbox' style='position:absolute; margin-top:1px;margin-left:" + item_margin + "px;'";
+                if (node.isdisabled) {
+                    displaytree += " disabled='true'";
+                }
+                displaytree += "></input>";
+                item_margin += 20;
+            }
+
+            if (node.buttonadd || (node.buttonadd == null && $settings.show_button_add)) {
+                displaytree += "<span class='ui-icon " + $settings.class_node_add + "' data-action='add' style='position:absolute; margin-top:1px;margin-left:" + item_margin + "px;'></span>";
+                item_margin += 20;
+            }
+
+            if (node.buttonremove || (node.buttonremove == null && $settings.show_button_remove)) {
+                displaytree += "<span class='ui-icon " + $settings.class_node_remove + "' data-action='remove' style='position:absolute; margin-top:1px;margin-left:" + item_margin + "px;'></span>";
+                item_margin += 20;
+            }
+
+            if (node.href) {
+                displaytree += "<a href='" + node.href + "' target='" + node.target + "'>";
+            }
+            displaytree += "<span style='margin-left:" + item_margin + "px;' data-action='text'>" + node.name + "</span>";
+            if (node.href) {
+                displaytree += "</a>";
+            }
+            displaytree += "</li>";
+
+            return displaytree;
+        }
+
+        $("li span[data-action='nav_items']").bind("click", function () {
             ToggleCaratIcon(this);
             CollapseTree(this);
         });
 
-        $("li").delegate("span[data-action='text']", "click", function (e) {
+        $("li span[data-action='text']").bind("click", function (e) {
             $settings.onselectednode($(this).parent().attr("nodeid"), e);
             HighlightNode(this, true);
         });
 
-        $("li").delegate("input[type='checkbox']", "click", function () {
+        $("li input[type='checkbox']").bind("click", function (e) {
+            $settings.onnodecheckselected($(this).parent("li").attr("nodeid"), $(this).parent("li"), e);
             SelectChildCheckBox(this, $(this).is(":checked"));
         });
 
-        $("li").delegate("span[data-action='add']", "click", function () {
+        $("li span[data-action='add']").bind("click", function (e) {
+            $settings.onbeforeaddnode();
             HighlightNode(this, true);
+            $settings.onaddnode($(this).parent("li"), e);
+            $settings.onafteraddnode();
         });
 
-        $("li").delegate("span[data-action='remove']", "click", function () {
+        $("li span[data-action='remove']").bind("click", function (e) {
+            $settings.onbeforeremovenode();
             HighlightNode(this, true);
             var confirm_remove = confirm($settings.node_remove_message);
 
             if (confirm_remove) {
-                var remove_item_id = $(this).parent().attr("nodeid");
-                RemoveNode.call(tree_datastructure, remove_item_id);
+                $settings.onremovenode($(this).parent("li").attr("nodeid"), $(this).parent("li"), e);
             }
             else {
                 HighlightNode(this, false);
             }
+            $settings.onafterremovenode();
         });
 
         function CollapseTree(selectednode) {
@@ -367,21 +383,9 @@
             }
         }
 
-        function SelectChildCheckBox(selectednode, flag) {           
+        function SelectChildCheckBox(selectednode, flag) {
             $(selectednode).parent("li").next("ul").find("input[type='checkbox']").each(function () {
                 $(this).prop('checked', flag);
-            });
-        }
-
-        function RemoveNode(nodes, nodeid) {
-            $(nodes).each(function (key, value) {
-                if (this.id == nodeid) {
-                    nodes.splice(this, 1);
-                    return false;
-                }
-                else if (this.childnodes.length > 0) {
-                    AddNodeToDisplayTree(this.childnodes);
-                }
             });
         }
     };
