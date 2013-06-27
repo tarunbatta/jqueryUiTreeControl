@@ -5,8 +5,10 @@
   <node id='4' name='Morbi malesuada lorem dignissim sapien molestie varius.' parentid='2' buttonremove='false'/>
   <node id='5' name='Integer et justo ac nunc viverra elementum vitae at eros.' parentid='3' />
   <node id='6' name='In feugiat ante sit amet orci pulvinar sit amet vehicula enim ornare.' parentid='4' />
-  <node id='7' name='Cras at orci turpis, sed sodales velit.' parentid='0' buttoncheck='true' buttonadd='false' buttonremove='false' classnodeicon='ui-icon-star'/>
+  <node id='7' name='Cras at orci turpis, sed sodales velit.' parentid='0' buttoncheck='true' buttonadd='false' buttonremove='false' classnodeicon='ui-icon-star' />
   <node id='8' name='Cras scelerisque urna vel mi condimentum ac feugiat libero iaculis.' parentid='7' href='https://github.com' target='_blank' />
-  <node id='9' name='Ut pharetra sem non est facilisis iaculis.' parentid='7' classnodeicon='ui-icon-lightbulb' buttoncheck='true'/>
+  <node id='9' name='Ut pharetra sem non est facilisis iaculis.' parentid='7' buttoncheck='true' />
   <node id='10' name='Praesent venenatis ante iaculis enim semper iaculis.' parentid='1' buttoncheck='true' isdisabled='true' />
+  <node id='11' name='Abra ka dabra.' parentid='9' buttoncheck='true' classnodeicon='ui-icon-lightbulb'/>
+  <node id='12' name='Hakuna matata.' parentid='9' buttoncheck='true' classnodeicon='ui-icon-lightbulb' ischecked='true'/>
 </root>

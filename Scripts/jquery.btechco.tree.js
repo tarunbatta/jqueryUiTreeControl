@@ -147,6 +147,7 @@
                     , buttonadd: this.buttonadd
                     , buttonremove: this.buttonremove
                     , isdisabled: this.isdisabled
+                    , ischecked: this.ischecked
                     , classnodeicon: this.classnodeicon
                     , childnodes: []
                 };
@@ -172,6 +173,7 @@
                     , buttonadd: $(this).attr("buttonadd") == null ? false : $(this).attr("buttonadd")
                     , buttonremove: $(this).attr("buttonremove") == null ? false : $(this).attr("buttonremove")
                     , isdisabled: $(this).attr("isdisabled") == null ? false : $(this).attr("isdisabled")
+                    , ischecked: $(this).attr("ischecked") == null ? false : $(this).attr("ischecked")
                     , classnodeicon: $(this).attr("classnodeicon")
                     , childnodes: []
                 };
@@ -197,6 +199,7 @@
                     , buttonadd: $(this).attr("buttonadd") == null ? false : $(this).attr("buttonadd")
                     , buttonremove: $(this).attr("buttonremove") == null ? false : $(this).attr("buttonremove")
                     , isdisabled: $(this).attr("isdisabled") == null ? false : $(this).attr("isdisabled")
+                    , ischecked: $(this).attr("ischecked") == null ? false : $(this).attr("ischecked")
                     , classnodeicon: $(this).attr("classnodeicon")
                     , childnodes: []
                 };
@@ -238,6 +241,8 @@
                 $.fn.btechcotree.ToggleCaratIcon(root_nodes);
                 $.fn.btechcotree.ToggleTree(root_nodes);
             }
+
+            StandardizeCheckSelection();
         }
 
         function AddNodeToDisplayTree(nodes) {
@@ -293,6 +298,10 @@
                 if (node.isdisabled) {
                     displaytree += " disabled='true'";
                 }
+                if (node.ischecked) {
+                    displaytree += " checked='true'";
+                }
+                displaytree += " data-ischecked='" + node.ischecked + "'";
                 displaytree += "></input>";
                 item_margin += 20;
             }
@@ -368,6 +377,34 @@
                 $(this).prop('checked', flag);
             });
         }
+
+        function StandardizeCheckSelection() {
+            // de-selects al the nodes if they don't have any child node which is selected
+            $("#" + $settings.containerid + " ul li").find("input[type='checkbox']").each(function () {
+                if ($(this).is(":checked") && $(this).attr("data-ischecked") && $(this).parent("li").next("ul").children().find("input[type='checkbox']").length > 0) {
+                    var isanychildselected = false;
+
+                    $(this).parent("li").next("ul").children().each(function () {
+                        if ($(this).find("input[type='checkbox']").is(":checked") && $(this).find("input[type='checkbox']").attr("data-ischecked")) {
+                            isanychildselected = true;
+                        }
+                    });
+
+                    if (!isanychildselected) {
+                        $(this).removeAttr("checked");
+                        $(this).attr("data-ischecked", "false");
+                    }
+                }
+            });
+
+            // selects immediate parents of the selected node if not selected
+            $("#" + $settings.containerid + " ul li").find("input[type='checkbox']").each(function () {
+                $(this).parents("ul").prev("li").each(function () {
+                    $(this).find("input[type='checkbox']").attr("checked", "true");
+                    $(this).find("input[type='checkbox']").attr("data-ischecked", "true");
+                });
+            });
+        }
     };
 
     $.fn.btechcotree.GetRootNodes = function () {
@@ -403,9 +440,9 @@
         }
         else {
             if ($(selectednode).parent().next("ul").is(":visible")) {
-                $(selectednode).parent().next("ul").hide(); 
+                $(selectednode).parent().next("ul").hide();
                 $.fn.btechcotree.ToggleCaratIcon(selectednode);
-            }            
+            }
         }
     };
 
