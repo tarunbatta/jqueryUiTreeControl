@@ -379,7 +379,7 @@
         }
 
         function StandardizeCheckSelection() {
-            // de-selects al the nodes if they don't have any child node which is selected
+            // de-selects all the nodes if they don't have any child node which is selected
             $("#" + $settings.containerid + " ul li").find("input[type='checkbox']").each(function () {
                 if ($(this).is(":checked") && $(this).attr("data-ischecked") && $(this).parent("li").next("ul").children().find("input[type='checkbox']").length > 0) {
                     var isanychildselected = false;
