@@ -49,7 +49,7 @@
         , onrendercomplete: function () { }
         , onbeforenodeinsert: function (node) { }
         , onafternodeinsert: function (node) { }
-        , onselectednode: function (node, sender) { }
+        , onselectednode: function (id, node, sender) { }
         , onbeforeaddnode: function () { }
         , onafteraddnode: function () { }
         , onbeforeremovenode: function () { }
@@ -114,7 +114,7 @@
                 case 1:
                     switch ($settings.dataformat) {
                         case 1:
-                            ConvertJsonLinearToTreeObject();
+                            ConvertJsonLinearToTreeObject($settings.dataset[0].root);
                             break;
                         case 2:
                             tree_datastructure = $settings.dataset[0].root;
@@ -124,10 +124,10 @@
                 case 2:
                     switch ($settings.dataformat) {
                         case 1:
-                            ConvertLinearXmlToTreeObject();
+                            ConvertLinearXmlToTreeObject($settings.dataset);
                             break;
                         case 2:
-                            ConvertHierarchyXmlToTreeObject();
+                            ConvertHierarchyXmlToTreeObject($settings.dataset);
                             break;
                     }
                     break;
@@ -135,22 +135,45 @@
             $settings.onafterdataconversion();
         }
 
-        function ConvertJsonLinearToTreeObject() {
-            $($settings.dataset[0].root).each(function (key, value) {
-                var node = {
-                    id: this.id
-                    , name: this.name
-                    , parentid: this.parentid
-                    , href: this.href
-                    , target: this.target
-                    , buttoncheck: this.buttoncheck
-                    , buttonadd: this.buttonadd
-                    , buttonremove: this.buttonremove
-                    , isdisabled: this.isdisabled
-                    , ischecked: this.ischecked
-                    , classnodeicon: this.classnodeicon
+        function GetNodeObjectFromJson(jsonnode) {
+            return {
+                id: jsonnode.id
+                    , name: jsonnode.name
+                    , parentid: jsonnode.parentid
+                    , href: jsonnode.href
+                    , target: jsonnode.target
+                    , tooltip: jsonnode.tooltip
+                    , buttoncheck: jsonnode.buttoncheck
+                    , buttonadd: jsonnode.buttonadd
+                    , buttonremove: jsonnode.buttonremove
+                    , isdisabled: jsonnode.isdisabled
+                    , ischecked: jsonnode.ischecked
+                    , classnodeicon: jsonnode.classnodeicon
                     , childnodes: []
-                };
+            };
+        }
+
+        function GetNodeObjectFromXml(xmlnode) {
+            return {
+                id: $(xmlnode).attr("id")
+                    , name: $(xmlnode).attr("name")
+                    , parentid: $(xmlnode).parent().attr("id") == null ? 0 : $(xmlnode).parent().attr("id")
+                    , href: $(xmlnode).attr("href")
+                    , target: $(xmlnode).attr("target")
+                    , tooltip: $(xmlnode).attr("tooltip")
+                    , buttoncheck: $(xmlnode).attr("buttoncheck") == null ? false : $(xmlnode).attr("buttoncheck")
+                    , buttonadd: $(xmlnode).attr("buttonadd") == null ? false : $(xmlnode).attr("buttonadd")
+                    , buttonremove: $(xmlnode).attr("buttonremove") == null ? false : $(xmlnode).attr("buttonremove")
+                    , isdisabled: $(xmlnode).attr("isdisabled") == null ? false : $(xmlnode).attr("isdisabled")
+                    , ischecked: $(xmlnode).attr("ischecked") == null ? false : $(xmlnode).attr("ischecked")
+                    , classnodeicon: $(xmlnode).attr("classnodeicon")
+                    , childnodes: []
+            };
+        }
+
+        function ConvertJsonLinearToTreeObject(dataset) {
+            $(dataset).each(function (key, value) {
+                var node = GetNodeObjectFromJson(this);
 
                 if (tree_datastructure.length == 0 || node.parentid == 0) {
                     tree_datastructure.push(node);
@@ -161,22 +184,9 @@
             });
         }
 
-        function ConvertLinearXmlToTreeObject() {
-            $($settings.dataset).find("node").each(function (key, value) {
-                var node = {
-                    id: $(this).attr("id")
-                    , name: $(this).attr("name")
-                    , parentid: $(this).attr("parentid")
-                    , href: $(this).attr("href")
-                    , target: $(this).attr("target")
-                    , buttoncheck: $(this).attr("buttoncheck") == null ? false : $(this).attr("buttoncheck")
-                    , buttonadd: $(this).attr("buttonadd") == null ? false : $(this).attr("buttonadd")
-                    , buttonremove: $(this).attr("buttonremove") == null ? false : $(this).attr("buttonremove")
-                    , isdisabled: $(this).attr("isdisabled") == null ? false : $(this).attr("isdisabled")
-                    , ischecked: $(this).attr("ischecked") == null ? false : $(this).attr("ischecked")
-                    , classnodeicon: $(this).attr("classnodeicon")
-                    , childnodes: []
-                };
+        function ConvertLinearXmlToTreeObject(dataset) {
+            $(dataset).find("node").each(function (key, value) {
+                var node = GetNodeObjectFromXml(this);
 
                 if (tree_datastructure.length == 0 || node.parentid == 0) {
                     tree_datastructure.push(node);
@@ -187,22 +197,9 @@
             });
         }
 
-        function ConvertHierarchyXmlToTreeObject() {
-            $($settings.dataset).find("node").each(function (key, value) {
-                var node = {
-                    id: $(this).attr("id")
-                    , name: $(this).attr("name")
-                    , parentid: $(this).parent().attr("id") == null ? 0 : $(this).parent().attr("id")
-                    , href: $(this).attr("href")
-                    , target: $(this).attr("target")
-                    , buttoncheck: $(this).attr("buttoncheck") == null ? false : $(this).attr("buttoncheck")
-                    , buttonadd: $(this).attr("buttonadd") == null ? false : $(this).attr("buttonadd")
-                    , buttonremove: $(this).attr("buttonremove") == null ? false : $(this).attr("buttonremove")
-                    , isdisabled: $(this).attr("isdisabled") == null ? false : $(this).attr("isdisabled")
-                    , ischecked: $(this).attr("ischecked") == null ? false : $(this).attr("ischecked")
-                    , classnodeicon: $(this).attr("classnodeicon")
-                    , childnodes: []
-                };
+        function ConvertHierarchyXmlToTreeObject(dataset) {
+            $(dataset).find("node").each(function (key, value) {
+                var node = GetNodeObjectFromXml(this);
 
                 if (tree_datastructure.length == 0 || node.parentid == 0) {
                     tree_datastructure.push(node);
@@ -233,6 +230,11 @@
             AddNodeToDisplayTree(tree_datastructure);
             $("#" + $settings.containerid).append(displaytree);
 
+            EnableRootCarats();
+            StandardizeCheckSelection();
+        }
+
+        function EnableRootCarats() {
             var root_nodes = $.fn.btechcotree.GetRootNodes();
             $.fn.btechcotree.ToggleCaratIcon(root_nodes);
             $.fn.btechcotree.ToggleTree(root_nodes);
@@ -241,8 +243,6 @@
                 $.fn.btechcotree.ToggleCaratIcon(root_nodes);
                 $.fn.btechcotree.ToggleTree(root_nodes);
             }
-
-            StandardizeCheckSelection();
         }
 
         function AddNodeToDisplayTree(nodes) {
@@ -319,7 +319,11 @@
             if (node.href) {
                 displaytree += "<a href='" + node.href + "' target='" + node.target + "'>";
             }
-            displaytree += "<span style='margin-left:" + item_margin + "px;' data-action='text'>" + node.name + "</span>";
+            displaytree += "<span style='margin-left:" + item_margin + "px;' data-action='text'";
+            if (node.tooltip!= null) {
+                displaytree+= " title='" + node.tooltip + "'";
+            }
+            displaytree += ">" + node.name + "</span>";
             if (node.href) {
                 displaytree += "</a>";
             }
@@ -333,8 +337,8 @@
             $.fn.btechcotree.ToggleTree(this);
         });
 
-        $("li span[data-action='text']").bind("click", function (e) {
-            $settings.onselectednode($(this).parent().attr("nodeid"), e);
+        $("li span[data-action='text']").live("click", function (e) {
+            $settings.onselectednode($(this).parent("li").attr("nodeid"), $(this).parent("li"), e);
             HighlightNode(this, true);
         });
 
@@ -368,7 +372,7 @@
             $("#" + $settings.containerid + " ul li span[data-action='text']").removeClass($settings.class_node_highlight);
 
             if (flag) {
-                $(selectednode).parent().find("span[data-action='text']").addClass($settings.class_node_highlight);
+                $(selectednode).parent().find("span[data-action='text']:first").addClass($settings.class_node_highlight);
             }
         }
 
@@ -426,7 +430,7 @@
                 $(this).addClass($settings.class_node_expand);
             }
             else {
-                $.noop();
+                $(this).addClass($settings.class_node_expand);
             }
         });
     };

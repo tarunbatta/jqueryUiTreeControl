@@ -27,7 +27,8 @@
                     "id": 1,
                     "name": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                     "parentid": 0,
-                    "href": "http://google.com"
+                    "href": "http://google.com",
+                    "tooltip": "Google"
                 },
                 {
                     "id": 2,
@@ -132,7 +133,7 @@
                 , onafternodeinsert: function (node) {
                     console.log("onafternodeinsert");
                 }
-                , onselectednode: function (node, sender) {
+                , onselectednode: function (id, node, sender) {
                     console.log("onselectednode");
                 }
                 , onbeforeaddnode: function (node, sender) {
