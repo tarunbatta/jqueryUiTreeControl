@@ -6,7 +6,9 @@ A jQuery-ui compatible tree control.
 ### Introduction
 We all know that jQuery UI being a popular rendering framework supports only basic controls. Many of the controls that we use in web domain are still missing. Once such control is tree control and In order to expand the control set of jQuery-ui, this tree control is created which is compatible with jQuery-ui.
 
-![BTechCo Tree Image](http://1.bp.blogspot.com/-kM36hWraFEs/Ub_I8cakjYI/AAAAAAAAACE/vR5NCm9e6JI/s1600/jqueryui_btechco_tree.png)
+![BTechCo Tree Image-1](http://1.bp.blogspot.com/-kM36hWraFEs/Ub_I8cakjYI/AAAAAAAAACE/vR5NCm9e6JI/s1600/jqueryui_btechco_tree.png)
+
+![BTechCo Tree Image-2](http://4.bp.blogspot.com/-pTA6979siC4/UkJnKISVTbI/AAAAAAAAACo/nrQJCOqAGHw/s1600/treeview.png)
 
 ### Footprints
 1. [@ Jquery] (http://plugins.jquery.com/btechcotree/)
