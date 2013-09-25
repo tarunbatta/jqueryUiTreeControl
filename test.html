@@ -2,14 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
-    <link rel="stylesheet" href="Styles/smoothness/jquery-ui-1.10.3.custom.min.css" />
-    <script src="Scripts/jquery-2.0.1.min.js"></script>
-    <script src="Scripts/jquery-ui-1.10.3.custom.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="Scripts/jquery.btechco.tree.js"></script>
 </head>
 <body>
-    <div id="treeview">
-    </div>
     <div>
         <button id="btn1">Test-1</button>
         <button id="btn2">Test-2</button>
@@ -17,11 +15,13 @@
         <button id="btn4">Collapse-All</button>
         <button id="btn5">Toggle</button>
     </div>
+    <div id="treeview">
+    </div>
 </body>
 </html>
 <script>
     $(document).ready(function () {
-        var data_obj = [{
+        var data_obj = {
             "root": [
                 {
                     "id": 1,
@@ -76,7 +76,7 @@
                     "parentid": 1
                 }
             ]
-        }];
+        };
 
         $("#btn1").click(function () {
             Clear();
@@ -103,10 +103,10 @@
                 , onend: function () {
                     console.log("onend");
                 }
-                , onprocessingstart: function (node) {
+                , onprocessingstart: function () {
                     console.log("onprocessingstart");
                 }
-                , onprocessingcomplete: function (node) {
+                , onprocessingcomplete: function () {
                     console.log("onprocessingcomplete");
                 }
                 , onprocessingerror: function (xhr, ajaxOptions, thrownError) {
@@ -115,49 +115,70 @@
                     console.log(ajaxOptions);
                     console.log(thrownError);
                 }
-                , onbeforedataconversion: function (node) {
+                , onbeforedataconversion: function () {
                     console.log("onbeforedataconversion");
                 }
-                , onafterdataconversion: function (node) {
+                , onafterdataconversion: function () {
                     console.log("onafterdataconversion");
                 }
-                , onrenderstart: function (node) {
+                , onrenderstart: function () {
                     console.log("onrenderstart");
                 }
-                , onrendercomplete: function (node) {
+                , onrendercomplete: function () {
                     console.log("onrendercomplete");
                 }
                 , onbeforenodeinsert: function (node) {
                     console.log("onbeforenodeinsert");
+                    console.log(node);
                 }
                 , onafternodeinsert: function (node) {
                     console.log("onafternodeinsert");
+                    console.log(node);
                 }
                 , onselectednode: function (id, node, sender) {
                     console.log("onselectednode");
+                    console.log(id);
+                    console.log(node);
+                    console.log(sender);
                 }
-                , onbeforeaddnode: function (node, sender) {
+                , onbeforeaddnode: function (id, node, sender) {
                     console.log("onbeforeaddnode");
+                    console.log(id);
+                    console.log(node);
+                    console.log(sender);
                 }
-                , onafteraddnode: function (node, sender) {
+                , onafteraddnode: function (id, node, sender) {
                     console.log("onafteraddnode");
+                    console.log(id);
+                    console.log(node);
+                    console.log(sender);
                 }
-                , onbeforeremovenode: function (node, sender) {
+                , onbeforeremovenode: function (id, node, sender) {
                     console.log("onbeforeremovenode");
+                    console.log(id);
+                    console.log(node);
+                    console.log(sender);
                 }
-                , onafterremovenode: function (node, sender) {
+                , onafterremovenode: function (id, node, sender) {
                     console.log("onafterremovenode");
+                    console.log(id);
+                    console.log(node);
+                    console.log(sender);
                 }
-                , onaddnode: function (node, sender) {
+                , onaddnode: function (id, node, sender) {
+                    console.log("onaddnode");
+                    console.log(id);
                     console.log(node);
                     console.log(sender);
                 }
                 , onremovenode: function (id, node, sender) {
+                    console.log("onremovenode");
                     console.log(id);
                     console.log(node);
                     console.log(sender);
                 }
                 , onnodecheckselected: function (id, node, sender) {
+                    console.log("onnodecheckselected");
                     console.log(id);
                     console.log(node);
                     console.log(sender);

@@ -50,11 +50,11 @@
         , onbeforenodeinsert: function (node) { }
         , onafternodeinsert: function (node) { }
         , onselectednode: function (id, node, sender) { }
-        , onbeforeaddnode: function () { }
-        , onafteraddnode: function () { }
-        , onbeforeremovenode: function () { }
-        , onafterremovenode: function () { }
-        , onaddnode: function (node, sender) { }
+        , onbeforeaddnode: function (id, node, sender) { }
+        , onafteraddnode: function (id, node, sender) { }
+        , onbeforeremovenode: function (id, node, sender) { }
+        , onafterremovenode: function (id, node, sender) { }
+        , onaddnode: function (id, node, sender) { }
         , onremovenode: function (id, node, sender) { }
         , onnodecheckselected: function (id, node, sender) { }
     };
@@ -114,10 +114,10 @@
                 case 1:
                     switch ($settings.dataformat) {
                         case 1:
-                            ConvertJsonLinearToTreeObject($settings.dataset[0].root);
+                            ConvertJsonLinearToTreeObject($settings.dataset.root);
                             break;
                         case 2:
-                            tree_datastructure = $settings.dataset[0].root;
+                            tree_datastructure = $settings.dataset.root;
                             break;
                     }
                     break;
@@ -132,6 +132,7 @@
                     }
                     break;
             }
+
             $settings.onafterdataconversion();
         }
 
@@ -154,10 +155,19 @@
         }
 
         function GetNodeObjectFromXml(xmlnode) {
+            var parentId = 0;
+
+            if ($(xmlnode).parent().attr("id") != null) {
+                parentId = $(xmlnode).parent().attr("id");
+            }
+            else if ($(xmlnode).attr("parentid") != null) {
+                parentId = $(xmlnode).attr("parentid");
+            }
+
             return {
                 id: $(xmlnode).attr("id")
                     , name: $(xmlnode).attr("name")
-                    , parentid: $(xmlnode).parent().attr("id") == null ? 0 : $(xmlnode).parent().attr("id")
+                    , parentid: parentId
                     , href: $(xmlnode).attr("href")
                     , target: $(xmlnode).attr("target")
                     , tooltip: $(xmlnode).attr("tooltip")
@@ -273,6 +283,7 @@
             var item_margin = 20;
 
             displaytree += "<li nodeid='" + node.id + "'>";
+            displaytree += "<div>";
             displaytree += "<span class='ui-icon ";
 
             if (node.classnodeicon != null && node.classnodeicon.length > 0) {
@@ -298,10 +309,13 @@
                 if (node.isdisabled) {
                     displaytree += " disabled='true'";
                 }
-                if (node.ischecked) {
-                    displaytree += " checked='true'";
+
+                if (node.ischecked == "true") {
+                    displaytree += " checked='true' data-ischecked=" + node.ischecked;
                 }
-                displaytree += " data-ischecked='" + node.ischecked + "'";
+                else {
+                    displaytree += " data-ischecked='false'";
+                }
                 displaytree += "></input>";
                 item_margin += 20;
             }
@@ -320,75 +334,96 @@
                 displaytree += "<a href='" + node.href + "' target='" + node.target + "'>";
             }
             displaytree += "<span style='margin-left:" + item_margin + "px;' data-action='text'";
-            if (node.tooltip!= null) {
-                displaytree+= " title='" + node.tooltip + "'";
+            if (node.tooltip != null) {
+                displaytree += " title='" + node.tooltip + "'";
             }
             displaytree += ">" + node.name + "</span>";
             if (node.href) {
                 displaytree += "</a>";
             }
+            displaytree += "</div>";
             displaytree += "</li>";
 
             return displaytree;
         }
 
-        $("li span[data-action='nav_items']").bind("click", function () {
+        $("li div span[data-action='nav_items']").bind("click", function () {
             $.fn.btechcotree.ToggleCaratIcon(this);
             $.fn.btechcotree.ToggleTree(this);
         });
 
-        $("li span[data-action='text']").live("click", function (e) {
-            $settings.onselectednode($(this).parent("li").attr("nodeid"), $(this).parent("li"), e);
+        $("li div span[data-action='text']").bind("click", function (e) {
+            $settings.onselectednode($(this).parent("div").parent("li").attr("nodeid"), $(this).parent("div").parent("li"), e);
             HighlightNode(this, true);
         });
 
-        $("li input[type='checkbox']").bind("click", function (e) {
-            $settings.onnodecheckselected($(this).parent("li").attr("nodeid"), $(this).parent("li"), e);
-            SelectChildCheckBox(this, $(this).is(":checked"));
+        $("li div input[type='checkbox']").bind("click", function (e) {
+            $settings.onnodecheckselected($(this).parent("div").parent("li").attr("nodeid"), $(this).parent("div").parent("li"), e);
+            SelectParentChildCheckBox(this, $(this).is(":checked"));
         });
 
-        $("li span[data-action='add']").bind("click", function (e) {
-            $settings.onbeforeaddnode();
+        $("li div span[data-action='add']").bind("click", function (e) {
+            $settings.onbeforeaddnode($(this).parent("div").parent("li").attr("nodeid"), $(this).parent("div").parent("li"), e);
             HighlightNode(this, true);
-            $settings.onaddnode($(this).parent("li"), e);
-            $settings.onafteraddnode();
+            $settings.onaddnode($(this).parent("div").parent("li").attr("nodeid"), $(this).parent("div").parent("li"), e);
+            $settings.onafteraddnode($(this).parent("div").parent("li").attr("nodeid"), $(this).parent("div").parent("li"), e);
         });
 
-        $("li span[data-action='remove']").bind("click", function (e) {
-            $settings.onbeforeremovenode();
+        $("li div span[data-action='remove']").bind("click", function (e) {
+            $settings.onbeforeremovenode($(this).parent("div").parent("li").attr("nodeid"), $(this).parent("div").parent("li"), e);
             HighlightNode(this, true);
             var confirm_remove = confirm($settings.node_remove_message);
 
             if (confirm_remove) {
-                $settings.onremovenode($(this).parent("li").attr("nodeid"), $(this).parent("li"), e);
+                $settings.onremovenode($(this).parent("div").parent("li").attr("nodeid"), $(this).parent("div").parent("li"), e);
             }
             else {
                 HighlightNode(this, false);
             }
-            $settings.onafterremovenode();
+            $settings.onafterremovenode($(this).parent("div").parent("li").attr("nodeid"), $(this).parent("div").parent("li"), e);
         });
 
         function HighlightNode(selectednode, flag) {
-            $("#" + $settings.containerid + " ul li span[data-action='text']").removeClass($settings.class_node_highlight);
+            $("#" + $settings.containerid + " ul li div span[data-action='text']").removeClass($settings.class_node_highlight);
 
             if (flag) {
-                $(selectednode).parent().find("span[data-action='text']:first").addClass($settings.class_node_highlight);
+                $(selectednode).parent("div").parent("li").find("span[data-action='text']:first").addClass($settings.class_node_highlight);
             }
         }
 
-        function SelectChildCheckBox(selectednode, flag) {
-            $(selectednode).parent("li").next("ul").find("input[type='checkbox']").each(function () {
-                $(this).prop('checked', flag);
+        function SelectParentChildCheckBox(selectednode, flag) {
+            // update status of current node
+            SelectCheckbox(selectednode, flag);
+
+            // selects all child checkboxes of selected node
+            $(selectednode).parent("div").parent("li").next("ul").find("input[type='checkbox']").each(function () {
+                SelectCheckbox(this, flag);
             });
+
+            //select all parent checkboxes of selected node
+            $(selectednode).parents("ul").prev("li").find("div input[type='checkbox']").each(function () {
+                SelectCheckbox(this, flag);
+            });
+        }
+
+        function SelectCheckbox(selectednode, flag) {
+            if (flag) {
+                $(selectednode).prop("checked", "true");
+                $(selectednode).attr("data-ischecked", "true");
+            }
+            else {
+                $(selectednode).removeAttr("checked");
+                $(selectednode).attr("data-ischecked", "false");
+            }
         }
 
         function StandardizeCheckSelection() {
             // de-selects all the nodes if they don't have any child node which is selected
-            $("#" + $settings.containerid + " ul li").find("input[type='checkbox']").each(function () {
-                if ($(this).is(":checked") && $(this).attr("data-ischecked") && $(this).parent("li").next("ul").children().find("input[type='checkbox']").length > 0) {
+            $("#" + $settings.containerid + " ul li div").find("input[type='checkbox']").each(function () {
+                if ($(this).is(":checked") && $(this).attr("data-ischecked") && $(this).parent("div").parent("li").next("ul").children().find("input[type='checkbox']").length > 0) {
                     var isanychildselected = false;
 
-                    $(this).parent("li").next("ul").children().each(function () {
+                    $(this).parent("div").parent("li").next("ul").children().each(function () {
                         if ($(this).find("input[type='checkbox']").is(":checked") && $(this).find("input[type='checkbox']").attr("data-ischecked")) {
                             isanychildselected = true;
                         }
@@ -402,7 +437,7 @@
             });
 
             // selects immediate parents of the selected node if not selected
-            $("#" + $settings.containerid + " ul li").find("input[type='checkbox']").each(function () {
+            $("#" + $settings.containerid + " ul li div").find("input[type='checkbox'][checked='true']").each(function () {
                 $(this).parents("ul").prev("li").each(function () {
                     $(this).find("input[type='checkbox']").attr("checked", "true");
                     $(this).find("input[type='checkbox']").attr("data-ischecked", "true");
@@ -412,39 +447,41 @@
     };
 
     $.fn.btechcotree.GetRootNodes = function () {
-        return $("#" + $settings.containerid + "> ul > li > span:nth-child(1)");
+        return $("#" + $settings.containerid + "> ul > li > div > span:nth-child(1)");
     };
 
     $.fn.btechcotree.ToggleTree = function (selectednode) {
-        $(selectednode).parent().next("ul").toggle();
+        $(selectednode).parent("div").parent("li").next("ul").toggle();
     };
 
     $.fn.btechcotree.ToggleCaratIcon = function (selectednode) {
         $(selectednode).each(function () {
-            if ($(this).hasClass($settings.class_node_expand)) {
-                $(this).removeClass($settings.class_node_expand);
-                $(this).addClass($settings.class_node_collapse);
-            }
-            else if ($(this).hasClass($settings.class_node_collapse)) {
-                $(this).removeClass($settings.class_node_collapse);
-                $(this).addClass($settings.class_node_expand);
-            }
-            else {
-                $(this).addClass($settings.class_node_expand);
+            if (!$(this).hasClass($settings.class_node_item)) {
+                if ($(this).hasClass($settings.class_node_expand)) {
+                    $(this).removeClass($settings.class_node_expand);
+                    $(this).addClass($settings.class_node_collapse);
+                }
+                else if ($(this).hasClass($settings.class_node_collapse)) {
+                    $(this).removeClass($settings.class_node_collapse);
+                    $(this).addClass($settings.class_node_expand);
+                }
+                else {
+                    $(this).addClass($settings.class_node_expand);
+                }
             }
         });
     };
 
     $.fn.btechcotree.ExpandCollapseTree = function (selectednode, flag) {
         if (flag) {
-            if (!$(selectednode).parent().next("ul").is(":visible")) {
-                $(selectednode).parent().next("ul").show();
+            if (!$(selectednode).parent("div").parent("li").next("ul").is(":visible")) {
+                $(selectednode).parent("div").parent("li").next("ul").show();
                 $.fn.btechcotree.ToggleCaratIcon(selectednode);
             }
         }
         else {
-            if ($(selectednode).parent().next("ul").is(":visible")) {
-                $(selectednode).parent().next("ul").hide();
+            if ($(selectednode).parent("div").parent("li").next("ul").is(":visible")) {
+                $(selectednode).parent("div").parent("li").next("ul").hide();
                 $.fn.btechcotree.ToggleCaratIcon(selectednode);
             }
         }

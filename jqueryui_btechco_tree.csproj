@@ -14,7 +14,7 @@
     <RootNamespace>jqueryui_btechco_tree</RootNamespace>
     <AssemblyName>jqueryui_btechco_tree</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -63,27 +63,9 @@
     <Content Include="jsonhierarchy.html" />
     <Content Include="jsonlinear.html" />
     <Content Include="LICENSE.txt" />
-    <Content Include="Scripts\jquery-2.0.1.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="Scripts\jquery.btechco.tree.js" />
     <Content Include="Scripts\jquery.btechco.tree.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Styles\smoothness\images\animated-overlay.gif" />
-    <Content Include="Styles\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Styles\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Styles\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Styles\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Styles\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Styles\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Styles\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Styles\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Styles\smoothness\images\ui-icons_222222_256x240.png" />
-    <Content Include="Styles\smoothness\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Styles\smoothness\images\ui-icons_454545_256x240.png" />
-    <Content Include="Styles\smoothness\images\ui-icons_888888_256x240.png" />
-    <Content Include="Styles\smoothness\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Styles\smoothness\jquery-ui-1.10.3.custom.css" />
-    <Content Include="Styles\smoothness\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="test.html" />
     <Content Include="xmllhierarchy.html" />
     <Content Include="xmllinear.html" />
@@ -96,6 +78,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -110,9 +101,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>53781</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:12899/</IISUrl>
+          <IISUrl>http://localhost/treeview</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
