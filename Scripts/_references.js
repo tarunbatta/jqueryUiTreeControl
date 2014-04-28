@@ -1,1 +1,1 @@
-﻿/// <reference path="~/Scripts/jquery.btechco.tree.js" />
+﻿/// <reference path="~/Scripts/jquery.battatech.jqueryui.tree.js" />

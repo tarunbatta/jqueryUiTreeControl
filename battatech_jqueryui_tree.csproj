@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>jqueryui_btechco_tree</RootNamespace>
-    <AssemblyName>jqueryui_btechco_tree</AssemblyName>
+    <RootNamespace>BattaTech.jQueryUI.Tree</RootNamespace>
+    <AssemblyName>BattaTech.jQueryUI.Tree</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
@@ -63,15 +63,15 @@
     <Content Include="jsonhierarchy.html" />
     <Content Include="jsonlinear.html" />
     <Content Include="LICENSE.txt" />
-    <Content Include="Scripts\jquery.btechco.tree.js" />
-    <Content Include="Scripts\jquery.btechco.tree.min.js" />
+    <Content Include="Scripts\jquery.battatech.jqueryui.tree.js" />
+    <Content Include="Scripts\jquery.battatech.jqueryui.tree.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="test.html" />
     <Content Include="xmllhierarchy.html" />
     <Content Include="xmllinear.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="btechcotree.jquery.json" />
+    <Content Include="battatech_jqueryui_tree.jquery.json" />
     <Content Include="data_hierarchy.json" />
     <Content Include="data_linear.json" />
     <Content Include="README.md" />

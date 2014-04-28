@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jqueryui_btechco_tree", "jqueryui_btechco_tree.csproj", "{96D31669-A5D4-4152-9414-EC2885D12618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "battatech_jqueryui_tree", "battatech_jqueryui_tree.csproj", "{96D31669-A5D4-4152-9414-EC2885D12618}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
