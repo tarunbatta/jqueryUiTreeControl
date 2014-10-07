@@ -138,7 +138,7 @@
             return {
                 id: jsonnode.id
                     , name: jsonnode.name
-                    , parentid: jsonnode.parentid
+                    , parentId: jsonnode.parentId
                     , href: jsonnode.href
                     , target: jsonnode.target
                     , tooltip: jsonnode.tooltip
@@ -158,14 +158,14 @@
             if ($(xmlnode).parent().attr("id") != null) {
                 parentId = $(xmlnode).parent().attr("id");
             }
-            else if ($(xmlnode).attr("parentid") != null) {
-                parentId = $(xmlnode).attr("parentid");
+            else if ($(xmlnode).attr("parentId") != null) {
+                parentId = $(xmlnode).attr("parentId");
             }
 
             return {
                 id: $(xmlnode).attr("id")
                     , name: $(xmlnode).attr("name")
-                    , parentid: parentId
+                    , parentId: parentId
                     , href: $(xmlnode).attr("href")
                     , target: $(xmlnode).attr("target")
                     , tooltip: $(xmlnode).attr("tooltip")
@@ -183,7 +183,7 @@
             $(dataset).each(function (key, value) {
                 var node = GetNodeObjectFromJson(this);
 
-                if (tree_datastructure.length == 0 || node.parentid == 0) {
+                if (tree_datastructure.length == 0 || node.parentId == 0) {
                     tree_datastructure.push(node);
                 }
                 else {
@@ -196,7 +196,7 @@
             $(dataset).find("node").each(function (key, value) {
                 var node = GetNodeObjectFromXml(this);
 
-                if (tree_datastructure.length == 0 || node.parentid == 0) {
+                if (tree_datastructure.length == 0 || node.parentId == 0) {
                     tree_datastructure.push(node);
                 }
                 else {
@@ -209,7 +209,7 @@
             $(dataset).find("node").each(function (key, value) {
                 var node = GetNodeObjectFromXml(this);
 
-                if (tree_datastructure.length == 0 || node.parentid == 0) {
+                if (tree_datastructure.length == 0 || node.parentId == 0) {
                     tree_datastructure.push(node);
                 }
                 else {
@@ -220,7 +220,7 @@
 
         function AddNodeToTreeDataStructure(nodes, childnode) {
             for (var i = 0; i < nodes.length; i++) {
-                if (nodes[i].id == childnode.parentid) {
+                if (nodes[i].id == childnode.parentId) {
                     if (nodes[i].childnodes.length == 0) {
                         nodes[i].childnodes = [];
                     }

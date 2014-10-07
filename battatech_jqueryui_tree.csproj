@@ -57,6 +57,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="xmllinear_a.html" />
+    <Content Include="data_linear_a.xml" />
     <Content Include="data_hierarchy.xml" />
     <Content Include="data_linear.xml" />
     <Content Include="index.html" />
