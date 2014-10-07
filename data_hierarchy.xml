@@ -1,5 +1,5 @@
 <root>
-  <node id='1' name='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' href='http://google.com'>
+  <node id='1' name='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' href='http://google.com' title='test'>
     <node id='2' name='Proin dignissim commodo elit, quis pretium metus volutpat at.'>
       <node id='4' name='Morbi malesuada lorem dignissim sapien molestie varius.'>
         <node id='6' name='In feugiat ante sit amet orci pulvinar sit amet vehicula enim ornare.'></node>

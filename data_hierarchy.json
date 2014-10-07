@@ -4,6 +4,7 @@
             "id": 1,
             "name": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "href": "http://google.com",
+            "title": "test",
             "childnodes": [
                 {
                     "id": 2,
@@ -38,7 +39,7 @@
                 }
             ]
         },
-		{
+        {
             "id": 7,
             "name": "Cras at orci turpis, sed sodales velit.",
             "childnodes": [

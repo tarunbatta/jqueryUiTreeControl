@@ -135,7 +135,9 @@
         }
 
         function GetNodeObjectFromJson(jsonnode) {
-            return {
+            var result;
+
+            result = {
                 id: jsonnode.id
                     , name: jsonnode.name
                     , parentId: jsonnode.parentId
@@ -150,9 +152,19 @@
                     , classnodeicon: jsonnode.classnodeicon
                     , childnodes: []
             };
+
+            for (var propertyName in jsonnode) {
+                if (!result.hasOwnProperty(propertyName))
+                {
+                    result[propertyName] = jsonnode[propertyName];
+                }
+            }
+
+            return result;
         }
 
         function GetNodeObjectFromXml(xmlnode) {
+            var result;
             var parentId = 0;
 
             if ($(xmlnode).parent().attr("id") != null) {
@@ -162,21 +174,29 @@
                 parentId = $(xmlnode).attr("parentId");
             }
 
-            return {
+            result = {
                 id: $(xmlnode).attr("id")
-                    , name: $(xmlnode).attr("name")
-                    , parentId: parentId
-                    , href: $(xmlnode).attr("href")
-                    , target: $(xmlnode).attr("target")
-                    , tooltip: $(xmlnode).attr("tooltip")
-                    , buttoncheck: $(xmlnode).attr("buttoncheck") == null ? false : $(xmlnode).attr("buttoncheck")
-                    , buttonadd: $(xmlnode).attr("buttonadd") == null ? false : $(xmlnode).attr("buttonadd")
-                    , buttonremove: $(xmlnode).attr("buttonremove") == null ? false : $(xmlnode).attr("buttonremove")
-                    , isdisabled: $(xmlnode).attr("isdisabled") == null ? false : $(xmlnode).attr("isdisabled")
-                    , ischecked: $(xmlnode).attr("ischecked") == null ? false : $(xmlnode).attr("ischecked")
-                    , classnodeicon: $(xmlnode).attr("classnodeicon")
-                    , childnodes: []
+                , name: $(xmlnode).attr("name")
+                , parentId: parentId
+                , href: $(xmlnode).attr("href")
+                , target: $(xmlnode).attr("target")
+                , tooltip: $(xmlnode).attr("tooltip")
+                , buttoncheck: $(xmlnode).attr("buttoncheck") == null ? false : $(xmlnode).attr("buttoncheck")
+                , buttonadd: $(xmlnode).attr("buttonadd") == null ? false : $(xmlnode).attr("buttonadd")
+                , buttonremove: $(xmlnode).attr("buttonremove") == null ? false : $(xmlnode).attr("buttonremove")
+                , isdisabled: $(xmlnode).attr("isdisabled") == null ? false : $(xmlnode).attr("isdisabled")
+                , ischecked: $(xmlnode).attr("ischecked") == null ? false : $(xmlnode).attr("ischecked")
+                , classnodeicon: $(xmlnode).attr("classnodeicon")
+                , childnodes: []
             };
+
+            $(xmlnode.attributes).each(function () {
+                if (!result.hasOwnProperty(this.name)) {
+                    result[this.name] = this.value;
+                }
+            });
+
+            return result;
         }
 
         function ConvertJsonLinearToTreeObject(dataset) {
@@ -279,8 +299,17 @@
         function CreateNode(node) {
             var displaytree = "";
             var item_margin = 20;
+            var internalProperties = ["id", "name", "parentId", "href", "target", "tooltip", "buttoncheck", "buttonadd", "buttonremove", "isdisabled", "ischecked", "classnodeicon", "childnodes"];
+            
+            displaytree += "<li nodeid='" + node.id + "'";
 
-            displaytree += "<li nodeid='" + node.id + "'>";
+            for (var propertyName in node) {
+                if (internalProperties.indexOf(propertyName) < 0) {
+                    displaytree += " " + propertyName + "='" + node[propertyName] + "'";
+                }
+            }
+
+            displaytree += ">";
             displaytree += "<div>";
             displaytree += "<span class='ui-icon ";
 

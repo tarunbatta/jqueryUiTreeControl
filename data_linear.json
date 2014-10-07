@@ -4,7 +4,8 @@
             "id": 1,
             "name": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "parentId": 0,
-            "href": "http://google.com"
+            "href": "http://google.com",
+			"title": "test"
         },
         {
             "id": 2,
