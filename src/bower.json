@@ -1,0 +1,26 @@
+{
+  "name": "battatech_jqueryui_tree",
+  "version": "2.1.0",
+  "homepage": "http://battatech.com/blog/jquery-ui-compatible-tree-control.aspx",
+  "authors": [
+    "Tarun Batta <info@battatech.com>"
+  ],
+  "description": "jQuery plugin for jquery-ui compliant treeview.",
+  "main": "jquery.battatech.jqueryui.tree.js",
+  "keywords": [
+    "jquery-ui",
+    "tree",
+    "treeview"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-ui": "~1.11.2"
+  }
+}
