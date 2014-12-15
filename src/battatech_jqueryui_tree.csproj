@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Gruntfile.js" />
+    <Content Include="LICENSE.txt" />
     <Content Include="xmllinear_a.html" />
     <Content Include="data_linear_a.xml" />
     <Content Include="data_hierarchy.xml" />
@@ -82,6 +83,7 @@
     <Content Include="web.config" />
     <Content Include="bower.json" />
     <Content Include="package.json" />
+    <Content Include="README.md" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
