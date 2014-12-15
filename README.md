@@ -1,2 +1,2 @@
 # battatech_jqueryui_tree jQuery Plugin
-[Documentation] (http://battatech.com/blog/jquery-ui-compatible-tree-control.aspx)
+[Documentation] (http://battatech.com/blog/jquery-ui-compatible-tree-control)
