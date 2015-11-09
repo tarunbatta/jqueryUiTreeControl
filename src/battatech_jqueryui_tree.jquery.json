@@ -19,8 +19,8 @@
         }
     ],
     "bugs": "https://github.com/battatech/battatech_jqueryui_tree/issues",
-    "homepage": "http://battatech.com/blog/jquery-ui-compatible-tree-control",
-    "docs": "http://battatech.com/blog/jquery-ui-compatible-tree-control",
+    "homepage": "http://blog.battatech.com/jquery-ui-compatible-tree-control/",
+    "docs": "http://blog.battatech.com/jquery-ui-compatible-tree-control/",
     "download": "https://github.com/battatech/battatech_jqueryui_tree",
     "dependencies": {
         "jquery": ">=1.8"
