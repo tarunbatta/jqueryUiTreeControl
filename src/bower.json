@@ -1,12 +1,12 @@
 {
-  "name": "battatech_jqueryui_tree",
-  "version": "2.1.1",
-  "homepage": "http://blog.battatech.com/jquery-ui-compatible-tree-control/",
+  "name": "jqueryuitreecontrol",
+  "version": "3.0.0",
+  "homepage": "http://techbytarun.com/jquery-ui-tree-control/",
   "authors": [
-    "Tarun Batta <info@battatech.com>"
+    "Tarun Batta <admin@techbytarun.com>"
   ],
   "description": "jQuery plugin for jquery-ui compliant treeview.",
-  "main": "jquery.battatech.jqueryui.tree.js",
+  "main": "jquery.techbytarun.jqueryuitreecontrol.js",
   "keywords": [
     "jquery-ui",
     "tree",

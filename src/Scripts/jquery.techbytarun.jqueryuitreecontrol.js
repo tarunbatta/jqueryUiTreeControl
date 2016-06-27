@@ -1,9 +1,9 @@
 ﻿/*
  * jQuery UI Treeview Plugin Library
- * http://www.battatech.com/
+ * http://techbytarun.com/
  *
  * Copyright (c) 2013 Batta Tech Private Limited
- * Licensed under https://github.com/battatech/battatech_jqueryui_tree/blob/master/LICENSE.txt
+ * Licensed under https://github.com/tarunbatta/jqueryUiTreeControl/blob/master/LICENSE.txt
  */
 
 (function ($) {

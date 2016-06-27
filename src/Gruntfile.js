@@ -8,22 +8,22 @@
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: 'Scripts/jquery.battatech.jqueryui.tree.js',
-                dest: 'Scripts/jquery.battatech.jqueryui.tree.min.js'
+                src: 'Scripts/jquery.techbytarun.jqueryuitreecontrol.js',
+                dest: 'Scripts/jquery.techbytarun.jqueryuitreecontrol.min.js'
             },
             dist: {
-                src: 'Scripts/jquery.battatech.jqueryui.tree.js',
-                dest: '../dist/jquery.battatech.jqueryui.tree.min.js'
+                src: 'Scripts/jquery.techbytarun.jqueryuitreecontrol.js',
+                dest: '../dist/jquery.techbytarun.jqueryuitreecontrol.min.js'
             }
         }
         , copy: {
             main: {
-                src: 'Scripts/jquery.battatech.jqueryui.tree.js',
-                dest: '../dist/jquery.battatech.jqueryui.tree.js'
+                src: 'Scripts/jquery.techbytarun.jqueryuitreecontrol.js',
+                dest: '../dist/jquery.techbytarun.jqueryuitreecontrol.js'
             }
         }
         , watch: {
-            files: 'Scripts/jquery.battatech.jqueryui.tree.js'
+            files: 'Scripts/jquery.techbytarun.jqueryuitreecontrol.js'
             , tasks: ['uglify', 'copy']
         }
     });
