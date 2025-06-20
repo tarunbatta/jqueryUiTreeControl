@@ -1,0 +1,1 @@
+{"version":3,"file":"dataLoader.d.ts","sourceRoot":"","sources":["../../utils/dataLoader.ts"],"names":[],"mappings":"AAEA,qBAAa,UAAU;IACT,OAAO,CAAC,QAAQ;gBAAR,QAAQ,EAAE,GAAG;IAEpB,QAAQ,IAAI,OAAO,CAAC,IAAI,CAAC;IAkBtC,OAAO,CAAC,WAAW;IAWnB,OAAO,CAAC,eAAe;CAgBxB"}

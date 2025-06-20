@@ -1,14 +1,26 @@
-const path = require("path");
-const TerserPlugin = require("terser-webpack-plugin");
+const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  entry: "./Scripts/jquery.techbytarun.jqueryuitreecontrol.js",
+  entry: './index.ts',
   output: {
-    filename: "jquery.techbytarun.jqueryuitreecontrol.js",
-    path: path.resolve(__dirname, "../dist"),
-    library: "jQueryUITreeControl",
-    libraryTarget: "umd",
-    globalObject: "this",
+    filename: 'jquery.techbytarun.jqueryuitreecontrol.js',
+    path: path.resolve(__dirname, './dist'),
+    library: 'jQueryUITreeControl',
+    libraryTarget: 'umd',
+    globalObject: 'this',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
   optimization: {
     minimize: true,
@@ -23,9 +35,9 @@ module.exports = {
       }),
     ],
   },
-  mode: "production",
+  mode: 'production',
   externals: {
-    jquery: "jQuery",
-    "jquery-ui": "jQuery.ui",
+    jquery: 'jQuery',
+    'jquery-ui': 'jQuery.ui',
   },
 };

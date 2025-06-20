@@ -1,31 +1,26 @@
 module.exports = {
+  parser: '@typescript-eslint/parser',
+  extends: ['eslint:recommended', '@typescript-eslint/recommended', 'prettier'],
+  plugins: ['@typescript-eslint', 'jquery'],
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+  },
   env: {
     browser: true,
-    es2021: true,
+    es6: true,
     jquery: true,
-    node: true,
   },
-  extends: ['eslint:recommended', 'prettier'],
-  plugins: ['jquery'],
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'script',
+  rules: {
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    'prefer-const': 'error',
+    'no-var': 'error',
   },
   globals: {
     $: 'readonly',
     jQuery: 'readonly',
-    $treedatatype: 'writable',
-    $treedataformat: 'writable',
-  },
-  rules: {
-    'no-unused-vars': 'warn',
-    'no-console': 'off',
-    'no-debugger': 'warn',
-    'prefer-const': 'warn',
-    'no-var': 'off',
-    'object-shorthand': 'off',
-    'prefer-template': 'off',
-    'no-prototype-builtins': 'off',
-    'no-global-assign': 'off',
   },
 };
