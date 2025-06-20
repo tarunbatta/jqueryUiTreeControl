@@ -1,10 +1,52 @@
 {
   "name": "jqueryuitreecontrol",
   "version": "3.0.0",
-  "devDependencies": 
-  {
-	  "grunt": "~1.6.1",
-    "grunt-contrib-uglify": "~0.6.0",
-	  "grunt-contrib-copy": "~0.7.0"
+  "description": "jQuery plugin for jquery-ui compliant treeview.",
+  "main": "Scripts/jquery.techbytarun.jqueryuitreecontrol.js",
+  "keywords": [
+    "jquery-ui",
+    "tree",
+    "treeview"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run uglify && npm run copy",
+    "build:webpack": "webpack --config webpack.config.js",
+    "build:webpack:dev": "webpack --config webpack.config.js --mode development",
+    "uglify": "uglifyjs Scripts/jquery.techbytarun.jqueryuitreecontrol.js -o Scripts/jquery.techbytarun.jqueryuitreecontrol.min.js --compress --mangle --source-map",
+    "copy": "cp Scripts/jquery.techbytarun.jqueryuitreecontrol.js ../dist/",
+    "copy-min": "cp Scripts/jquery.techbytarun.jqueryuitreecontrol.min.js ../dist/",
+    "watch": "nodemon --watch Scripts/jquery.techbytarun.jqueryuitreecontrol.js --exec 'npm run build'",
+    "watch:webpack": "webpack --config webpack.config.js --watch",
+    "clean": "rm -f Scripts/*.min.js ../dist/*.js",
+    "dev": "npm run build && npm run watch",
+    "dev:webpack": "npm run build:webpack:dev && npm run watch:webpack",
+    "lint": "eslint Scripts/*.js",
+    "lint:fix": "eslint Scripts/*.js --fix",
+    "format": "prettier --write Scripts/*.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "validate": "npm run lint && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "uglify-js": "^3.17.4",
+    "nodemon": "^3.0.1",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "terser-webpack-plugin": "^5.3.9",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-jquery": "^1.5.1",
+    "prettier": "^2.8.8",
+    "jest": "^29.5.0",
+    "jsdom": "^22.1.0"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "jquery-ui": "^1.13.2"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"]
   }
 }

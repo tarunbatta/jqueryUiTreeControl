@@ -3,9 +3,9 @@
     "title": "jQuery-ui Treeview",
     "description": "jQuery plugin for jquery-ui compliant treeview.",
     "keywords": [
-        "jquery-ui"
-		, "tree"
-		, "treeview"
+        "jquery-ui",
+        "tree",
+        "treeview"
     ],
     "version": "3.0.0",
     "author": {
@@ -14,15 +14,21 @@
     },
     "licenses": [
         {
-            "type": "BattaTech",
+            "type": "MIT",
             "url": "https://github.com/tarunbatta/jqueryUiTreeControl/blob/master/LICENSE.txt"
         }
     ],
     "bugs": "https://github.com/tarunbatta/jqueryUiTreeControl/issues",
     "homepage": "http://techbytarun.com/jquery-ui-tree-control/",
-    "docs": " http://techbytarun.com/jquery-ui-tree-control/",
+    "docs": "http://techbytarun.com/jquery-ui-tree-control/",
     "download": "https://github.com/tarunbatta/jqueryUiTreeControl",
     "dependencies": {
-        "jquery": ">=1.8"
+        "jquery": ">=3.0.0",
+        "jquery-ui": ">=1.13.0"
+    },
+    "main": "Scripts/jquery.techbytarun.jqueryuitreecontrol.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tarunbatta/jqueryUiTreeControl.git"
     }
 }
