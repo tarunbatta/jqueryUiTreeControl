@@ -12,3 +12,10 @@ paths-ignore:
   - "**/dist"
   - "**/*.test.ts"
   - "**/*.spec.ts"
+  - "**/__tests__"
+  - "**/*.d.ts"
+
+# Add explicit configuration for better SARIF processing
+query-filters:
+  - include:
+      tags contain: security
