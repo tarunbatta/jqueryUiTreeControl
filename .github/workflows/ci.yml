@@ -19,12 +19,18 @@ jobs:
         with:
           node-version: 20
       - name: Install dependencies
-        run: npm install --prefix src
+        run: |
+          cd src
+          npm install
       - name: Lint
         run: |
           cd src
           npm run lint
       - name: Test
-        run: npm test --prefix src
+        run: |
+          cd src
+          npm test
       - name: Build
-        run: npm run build --prefix src
+        run: |
+          cd src
+          npm run build
