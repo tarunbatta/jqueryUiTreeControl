@@ -1,3 +1,7 @@
+import $ from 'jquery';
+(global as any).$ = $;
+(global as any).jQuery = $;
+import '../index';
 import { TreeControl } from '../TreeControl';
 import { TreeDataType, TreeDataFormat } from '../types';
 
