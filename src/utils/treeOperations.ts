@@ -1,5 +1,5 @@
 export class TreeOperations {
-  constructor(private settings: any) {}
+  constructor(private settings: Record<string, unknown>) {}
 
   public getRootNodes(): JQuery {
     return $(

@@ -19,9 +19,9 @@
     "clean": "rm -rf dist/*",
     "dev": "npm run build && npm run watch",
     "dev:webpack": "npm run build:webpack:dev && npm run watch:webpack",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
-    "format": "prettier --write src/**/*.ts",
+    "lint": "eslint **/*.ts",
+    "lint:fix": "eslint **/*.ts --fix",
+    "format": "prettier --write **/*.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "validate": "npm run lint && npm run test && npm run build"

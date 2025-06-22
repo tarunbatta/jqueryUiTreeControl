@@ -1,10 +1,10 @@
 export class EventHandlers {
-  constructor(private settings: any) {
+  constructor(private settings: Record<string, unknown>) {
     this.bindEvents();
   }
 
   private bindEvents(): void {
-    const pluginAny = $.fn.btechcotree as any;
+    const pluginAny = $.fn.btechcotree as Record<string, unknown>;
     // Navigation events
     $(document).on(
       'click',

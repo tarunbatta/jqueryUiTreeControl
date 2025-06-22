@@ -3,7 +3,7 @@ import { TreeNode } from '../types';
 export class TreeRenderer {
   private displayTree = '';
 
-  constructor(private settings: any) {}
+  constructor(private settings: Record<string, unknown>) {}
 
   public buildTree(treeDataStructure: TreeNode[]): string {
     this.settings.onrenderstart();
@@ -19,7 +19,7 @@ export class TreeRenderer {
       this.displayTree += "<ul style='list-style-type:none; display:none;'>";
     }
 
-    nodes.forEach((node) => {
+    nodes.forEach(node => {
       this.settings.onbeforenodeinsert(node);
       this.displayTree += this.createNode(node);
       this.settings.onafternodeinsert(node);

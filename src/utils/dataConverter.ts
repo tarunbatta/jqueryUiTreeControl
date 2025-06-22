@@ -9,7 +9,7 @@ import {
 export class DataConverter {
   private treeDataStructure: TreeNode[] = [];
 
-  constructor(private settings: any) {}
+  constructor(private settings: Record<string, unknown>) {}
 
   public convertData(): TreeNode[] {
     this.settings.onbeforedataconversion();
@@ -50,7 +50,7 @@ export class DataConverter {
   }
 
   private convertJsonLinearToTreeObject(dataset: JsonNode[]): void {
-    dataset.forEach((item) => {
+    dataset.forEach(item => {
       const node = this.getNodeObjectFromJson(item);
 
       if (this.treeDataStructure.length === 0 || node.parentId === 0) {
@@ -105,7 +105,9 @@ export class DataConverter {
     // Copy additional properties
     for (const propertyName in jsonNode) {
       if (!(propertyName in result)) {
-        (result as any)[propertyName] = jsonNode[propertyName];
+        (result as Record<string, unknown>)[propertyName] = (
+          jsonNode as Record<string, unknown>
+        )[propertyName];
       }
     }
 
@@ -140,9 +142,9 @@ export class DataConverter {
     // Copy additional attributes
     const attributes = xmlNode[0]?.attributes;
     if (attributes) {
-      Array.from(attributes).forEach((attr) => {
+      Array.from(attributes).forEach(attr => {
         if (!(attr.name in result)) {
-          (result as any)[attr.name] = attr.value;
+          (result as Record<string, unknown>)[attr.name] = attr.value;
         }
       });
     }

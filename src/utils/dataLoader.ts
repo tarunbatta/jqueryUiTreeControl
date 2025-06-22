@@ -1,21 +1,30 @@
 import { TreeDataType } from '../types';
 
 export class DataLoader {
-  constructor(private settings: any) {}
+  constructor(private settings: Record<string, unknown>) {}
 
   public async loadData(): Promise<void> {
-    if (this.settings.url && this.settings.url.length > 0) {
+    if (
+      (this.settings.url as string) &&
+      (this.settings.url as string).length > 0
+    ) {
       const dataType = this.getDataType();
 
       try {
         const data = await this.makeAjaxRequest(dataType);
         this.settings.dataset = data;
       } catch (error) {
-        const err = error as any;
-        this.settings.onprocessingerror(
+        const err = error as Record<string, unknown>;
+        (
+          this.settings.onprocessingerror as (
+            xhr: unknown,
+            ajaxOptions: string,
+            thrownError: string
+          ) => void
+        )(
           err.xhr || err,
           err.ajaxOptions || '',
-          err.thrownError || err.message
+          err.thrownError || (err.message as string)
         );
       }
     }
@@ -32,14 +41,14 @@ export class DataLoader {
     }
   }
 
-  private makeAjaxRequest(dataType: string): Promise<any> {
+  private makeAjaxRequest(dataType: string): Promise<unknown> {
     return new Promise((resolve, reject) => {
       $.ajax({
         type: 'GET',
-        async: this.settings.async,
-        url: this.settings.url,
+        async: this.settings.async as boolean,
+        url: this.settings.url as string,
         dataType: dataType,
-        success: (data) => {
+        success: data => {
           resolve(data);
         },
         error: (xhr, ajaxOptions, thrownError) => {

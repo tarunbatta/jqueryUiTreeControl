@@ -22,14 +22,14 @@ export interface TreeNode {
   ischecked?: boolean | undefined;
   classnodeicon?: string | undefined;
   childnodes: TreeNode[];
-  [key: string]: any; // Allow additional properties
+  [key: string]: unknown; // Allow additional properties
 }
 
 export interface TreeSettings {
   containerid: string | null;
   url: string | null;
   async: boolean;
-  dataset: any;
+  dataset: unknown;
   datatype: TreeDataType;
   dataformat: TreeDataFormat;
   class_node_collapse: string;
@@ -109,7 +109,7 @@ export interface JsonNode {
   isdisabled?: boolean;
   ischecked?: boolean;
   classnodeicon?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface JsonDataset {
