@@ -31,21 +31,9 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
-          # If you wish to specify custom queries, you can do so here
-          # queries: security-extended,security-and-quality
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Install dependencies
-        run: npm install --prefix src
-
-      - name: Build project
-        run: npm run build --prefix src
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
-        with:
-          category: "/language:${{matrix.language}}"
