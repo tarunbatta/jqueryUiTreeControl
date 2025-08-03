@@ -9,12 +9,52 @@ updates:
   - package-ecosystem: "npm"
     directory: "/src" # Location of package.json
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+      day: "sunday"
+      time: "09:00"
+      timezone: "UTC"
     open-pull-requests-limit: 10
+    reviewers:
+      - "tarunbatta"
+    assignees:
+      - "tarunbatta"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # Ignore major version updates for now
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
 
-  # Enable version updates for bower dependencies
-  - package-ecosystem: "bower"
-    directory: "/src" # Location of bower.json
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
+      interval: "monthly"
+      day: "sunday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "tarunbatta"
+    assignees:
+      - "tarunbatta"
+    commit-message:
+      prefix: "ci"
+      prefix-development: "ci"
+      include: "scope"
