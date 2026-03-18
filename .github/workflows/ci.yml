@@ -1,0 +1,31 @@
+name: CI
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: npm install --prefix src
+      - name: Lint
+        run: npm run lint --prefix src
+      - name: Test
+        run: npm test --prefix src
+      - name: Build
+        run: npm run build --prefix src
